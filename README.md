@@ -1,11 +1,11 @@
-# Shiro authority management system
+# Shiro权限管理系统
 
 ## 协作文档
 ### Commit 规范
 - feat：增加了新功能
 - fix：修补 bug
 - docs：文档
-- style： 格式变化，不影响代码运行的变动
+- style：格式变化，不影响代码运行的变动
 - refactor：重构代码（即不是新增功能，也不是修改bug的代码变动）
 - test：增加测试
 - chore：构建过程或辅助工具的变动
