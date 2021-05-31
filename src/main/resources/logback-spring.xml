@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <contextName>community</contextName>
-    <property name="LOG_PATH" value="C:/Users/31821/Documents/牛客JAVA高级工程师/log"/>
-    <property name="APPDIR" value="community"/>
+    <property name="LOG_PATH" value="C:/log"/>
+    <property name="APPDIR" value="shiro"/>
 
     <!-- error file -->
     <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -81,7 +81,7 @@
         </filter>
     </appender>
 
-    <logger name="com.nowcoder.community" level="debug"/>
+    <logger name="com.csuft.shiroauthoritymanagementsystem" level="debug"/>
 
     <root level="info">
         <appender-ref ref="FILE_ERROR"/>
