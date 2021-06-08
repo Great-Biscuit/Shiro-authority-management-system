@@ -2,6 +2,7 @@ package com.qfedu.dtboot.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class SysRole implements Serializable {
 
@@ -9,9 +10,25 @@ public class SysRole implements Serializable {
 
     private String roleName;
 
+    /**
+     * 备注
+     */
     private String remark;
 
+    /**
+     * 创建者ID
+     */
     private Long createUserId;
+
+    /**
+     * 创建者姓名
+     */
+    private String createName;
+
+    /**
+     * 菜单ID列表
+     */
+    private List<Long> menuIdList;
 
     private Date createTime;
 
@@ -55,5 +72,34 @@ public class SysRole implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getCreateName() {
+        return createName;
+    }
+
+    public void setCreateName(String createName) {
+        this.createName = createName;
+    }
+
+    public List<Long> getMenuIdList() {
+        return menuIdList;
+    }
+
+    public void setMenuIdList(List<Long> menuIdList) {
+        this.menuIdList = menuIdList;
+    }
+
+    @Override
+    public String toString() {
+        return "SysRole{" +
+                "roleId=" + roleId +
+                ", roleName='" + roleName + '\'' +
+                ", remark='" + remark + '\'' +
+                ", createUserId=" + createUserId +
+                ", createName='" + createName + '\'' +
+                ", menuIdList=" + menuIdList +
+                ", createTime=" + createTime +
+                '}';
     }
 }

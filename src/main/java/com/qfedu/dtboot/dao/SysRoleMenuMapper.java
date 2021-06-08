@@ -3,6 +3,8 @@ package com.qfedu.dtboot.dao;
 import com.qfedu.dtboot.entity.SysRoleMenu;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface SysRoleMenuMapper {
 
@@ -17,4 +19,9 @@ public interface SysRoleMenuMapper {
     int updateByPrimaryKeySelective(SysRoleMenu record);
 
     int updateByPrimaryKey(SysRoleMenu record);
+
+    /**
+     * 根据角色ID获取菜单ID列表
+     */
+    List<Long> queryMenuIdList(Long roleId);
 }

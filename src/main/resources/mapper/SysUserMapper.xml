@@ -166,4 +166,22 @@
         from sys_user
     </select>
 
+    <delete id="deleteBatch">
+        delete from sys_user where user_id in
+        <foreach item="userId" collection="array" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+        ;
+        delete from sys_user_role where user_id in
+        <foreach item="userId" collection="array" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </delete>
+
+    <select id="selectById" resultType="com.qfedu.dtboot.entity.SysUser">
+        select *
+        from sys_user
+        where user_id = #{userId}
+    </select>
+
 </mapper>

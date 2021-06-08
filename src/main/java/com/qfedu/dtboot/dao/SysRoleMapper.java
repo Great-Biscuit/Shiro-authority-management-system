@@ -13,10 +13,22 @@ public interface SysRoleMapper {
 
     int insert(SysRole record);
 
+    /**
+     * 属性不全插入
+     *
+     * @param record
+     * @return
+     */
     int insertSelective(SysRole record);
 
     SysRole selectByPrimaryKey(Long roleId);
 
+    /**
+     * 属性不全更新
+     *
+     * @param record
+     * @return
+     */
     int updateByPrimaryKeySelective(SysRole record);
 
     int updateByPrimaryKey(SysRole record);
@@ -26,4 +38,7 @@ public interface SysRoleMapper {
     int queryTotal(Query query);
 
     int deleteBatch(Long[] roleIds);
+
+    List<SysRole> selectAll();
+
 }

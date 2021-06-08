@@ -2,6 +2,7 @@ package com.qfedu.dtboot.controller;
 
 import com.qfedu.dtboot.annotation.MyLog;
 import com.qfedu.dtboot.entity.SysRole;
+import com.qfedu.dtboot.service.SysRoleMenuService;
 import com.qfedu.dtboot.service.SysRoleService;
 import com.qfedu.dtboot.utils.DataGridResult;
 import com.qfedu.dtboot.utils.Query;
@@ -20,6 +21,9 @@ public class SysRoleController {
     @Autowired
     private SysRoleService sysRoleService;
 
+    @Autowired
+    private SysRoleMenuService sysRoleMenuService;
+
 
     @RequestMapping("/list")
     @RequiresPermissions("sys:role:list")
@@ -34,7 +38,6 @@ public class SysRoleController {
     @RequiresPermissions("sys:role:select")
     public R select() {
         List<SysRole> list = sysRoleService.list();
-
         return R.ok().put("list", list);
     }
 
@@ -48,10 +51,6 @@ public class SysRoleController {
         List<Long> menuIdList = sysRoleMenuService.queryMenuIdList(roleId);
         role.setMenuIdList(menuIdList);
 
-        //查询角色对应的部门
-        List<Long> deptIdList = sysRoleDeptService.queryDeptIdList(new Long[]{roleId});
-        role.setDeptIdList(deptIdList);
-
         return R.ok().put("role", role);
     }
 
@@ -59,7 +58,7 @@ public class SysRoleController {
     @RequestMapping("/save")
     @RequiresPermissions("sys:role:save")
     public R save(@RequestBody SysRole role) {
-        sysRoleService.saveRole(role);
+        boolean flag = sysRoleService.saveRole(role);
         return R.ok();
     }
 
@@ -67,7 +66,7 @@ public class SysRoleController {
     @RequestMapping("/update")
     @RequiresPermissions("sys:role:update")
     public R update(@RequestBody SysRole role) {
-        sysRoleService.update(role);
+        boolean flag = sysRoleService.update(role);
         return R.ok();
     }
 

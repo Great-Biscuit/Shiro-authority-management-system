@@ -26,4 +26,14 @@ public interface SysUserService {
     List<Long> queryAllMenuId(Long userId);
 
     DataGridResult getPageList(Query query);
+
+    boolean updatePassword(Long userId, String password, String newPassword);
+
+    SysUser getById(Long userId);
+
+    void deleteByIds(List<Long> asList);
+
+    boolean saveUser(SysUser user);
+
+    boolean updateUser(SysUser user);
 }

@@ -90,4 +90,19 @@ public interface SysUserMapper {
      */
     List<Long> queryAllMenuId(Long userId);
 
+    /**
+     * 批量删除
+     *
+     * @param userIds
+     * @return
+     */
+    int deleteBatch(List<Long> userIds);
+
+    /**
+     * 根据ID查询用户
+     *
+     * @param userId
+     * @return
+     */
+    SysUser selectById(Long userId);
 }

@@ -1,8 +1,6 @@
 package com.qfedu.dtboot.service.impl;
 
-import com.qfedu.dtboot.dao.SysMenuMapper;
 import com.qfedu.dtboot.dao.SysUserMapper;
-import com.qfedu.dtboot.entity.SysMenu;
 import com.qfedu.dtboot.entity.SysUser;
 import com.qfedu.dtboot.service.SysUserService;
 import com.qfedu.dtboot.utils.DataGridResult;
@@ -17,9 +15,6 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
     private SysUserMapper sysUserMapper;
-
-    @Autowired
-    private SysMenuMapper sysMenuMapper;
 
     @Override
     public SysUser queryByUserName(String username) {
@@ -44,5 +39,34 @@ public class SysUserServiceImpl implements SysUserService {
         //创建DataGridResult对象
         DataGridResult dataGridResult = new DataGridResult(rows, total);
         return dataGridResult;
+    }
+
+    @Override
+    public boolean updatePassword(Long userId, String password, String newPassword) {
+        return false;
+    }
+
+    @Override
+    public SysUser getById(Long userId) {
+        return sysUserMapper.selectById(userId);
+    }
+
+    @Override
+    public void deleteByIds(List<Long> asList) {
+        sysUserMapper.deleteBatch(asList);
+    }
+
+    @Override
+    public boolean saveUser(SysUser user) {
+        int t = sysUserMapper.insertSelective(user);
+        if (t == 0) return false;
+        return true;
+    }
+
+    @Override
+    public boolean updateUser(SysUser user) {
+        int t = sysUserMapper.updateByPrimaryKeySelective(user);
+        if (t == 0) return false;
+        return true;
     }
 }

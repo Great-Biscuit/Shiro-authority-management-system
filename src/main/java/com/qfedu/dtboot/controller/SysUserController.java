@@ -2,6 +2,7 @@ package com.qfedu.dtboot.controller;
 
 import com.qfedu.dtboot.annotation.MyLog;
 import com.qfedu.dtboot.entity.SysUser;
+import com.qfedu.dtboot.service.SysUserRoleService;
 import com.qfedu.dtboot.service.SysUserService;
 import com.qfedu.dtboot.utils.DataGridResult;
 import com.qfedu.dtboot.utils.Query;
@@ -23,6 +24,9 @@ public class SysUserController extends AbstractController {
 
     @Autowired
     private SysUserService sysUserService;
+
+    @Autowired
+    private SysUserRoleService sysUserRoleService;
 
     /**
      * 获取登录的用户信息
@@ -88,7 +92,7 @@ public class SysUserController extends AbstractController {
     @RequestMapping("/save")
     @RequiresPermissions("sys:user:sava")
     public R userSave(@RequestBody SysUser user) {
-        sysUserService.saveUser();
+        boolean flag = sysUserService.saveUser(user);
         return R.ok();
     }
 
@@ -101,8 +105,8 @@ public class SysUserController extends AbstractController {
     @MyLog("修改用户")
     @RequestMapping("/update")
     @RequiresPermissions("sys:user:update")
-    public R userSave(@RequestBody SysUser user) {
-        sysUserService.updateUser();
+    public R userUpdate(@RequestBody SysUser user) {
+        boolean flag = sysUserService.updateUser(user);
         return R.ok();
     }
 

@@ -27,6 +27,12 @@ public interface SysMenuMapper {
 
     int queryTotal(Query query);
 
+    /**
+     * 批量删除
+     *
+     * @param menuIds
+     * @return
+     */
     int deleteBatch(Long[] menuIds);
 
     /**

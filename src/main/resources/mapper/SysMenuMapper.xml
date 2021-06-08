@@ -20,10 +20,12 @@
         from sys_menu
         where menu_id = #{menuId,jdbcType=BIGINT}
     </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from sys_menu
         where menu_id = #{menuId,jdbcType=BIGINT}
     </delete>
+
     <insert id="insert" parameterType="com.qfedu.dtboot.entity.SysMenu">
         insert into sys_menu (menu_id, parent_id, name,
         url, perms, type, icon,
@@ -32,6 +34,7 @@
         #{url,jdbcType=VARCHAR}, #{perms,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR},
         #{orderNum,jdbcType=INTEGER})
     </insert>
+
     <insert id="insertSelective" parameterType="com.qfedu.dtboot.entity.SysMenu">
         insert into sys_menu
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -87,6 +90,7 @@
             </if>
         </trim>
     </insert>
+
     <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.dtboot.entity.SysMenu">
         update sys_menu
         <set>
@@ -114,6 +118,7 @@
         </set>
         where menu_id = #{menuId,jdbcType=BIGINT}
     </update>
+
     <update id="updateByPrimaryKey" parameterType="com.qfedu.dtboot.entity.SysMenu">
         update sys_menu
         set parent_id = #{parentId,jdbcType=BIGINT},

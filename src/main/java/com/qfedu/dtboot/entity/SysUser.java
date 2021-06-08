@@ -2,6 +2,7 @@ package com.qfedu.dtboot.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class SysUser implements Serializable {
 
@@ -15,11 +16,27 @@ public class SysUser implements Serializable {
 
     private String mobile;
 
+    /**
+     * 状态 0：禁用 1：正常
+     */
     private Byte status;
 
+    /**
+     * 创建者ID
+     */
     private Long createUserId;
 
+    /**
+     * 创建者姓名
+     */
+    private String createName;
+
     private Date createTime;
+
+    /**
+     * 角色ID列表
+     */
+    private List<Long> roleIdList;
 
     private static final long serialVersionUID = 1L;
 
@@ -85,5 +102,37 @@ public class SysUser implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public List<Long> getRoleIdList() {
+        return roleIdList;
+    }
+
+    public void setRoleIdList(List<Long> roleIdList) {
+        this.roleIdList = roleIdList;
+    }
+
+    public String getCreateName() {
+        return createName;
+    }
+
+    public void setCreateName(String createName) {
+        this.createName = createName;
+    }
+
+    @Override
+    public String toString() {
+        return "SysUser{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", status=" + status +
+                ", createUserId=" + createUserId +
+                ", createName='" + createName + '\'' +
+                ", createTime=" + createTime +
+                ", roleIdList=" + roleIdList +
+                '}';
     }
 }

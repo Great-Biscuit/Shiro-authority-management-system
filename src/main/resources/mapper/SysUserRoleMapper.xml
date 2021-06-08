@@ -62,10 +62,16 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.qfedu.dtboot.entity.SysUserRole" >
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.dtboot.entity.SysUserRole">
     update sys_user_role
     set user_id = #{userId,jdbcType=BIGINT},
-      role_id = #{roleId,jdbcType=BIGINT}
+        role_id = #{roleId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="queryRoleIdList" resultType="long">
+    select role_id
+    from sys_user_role
+    where user_id = #{user_id,jdbcType=BIGINT}
+  </select>
 </mapper>
