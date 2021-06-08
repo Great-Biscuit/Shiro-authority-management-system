@@ -19,6 +19,7 @@
         </property>
     </bean>
     <aop:config proxy-target-class="true" >
+        <!--该错误可忽视-->
         <aop:advisor advice-ref="druid-stat-interceptor"
                      pointcut-ref="druid-stat-pointcut" />
     </aop:config>
