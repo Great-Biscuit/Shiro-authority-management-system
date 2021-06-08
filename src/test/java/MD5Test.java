@@ -14,7 +14,7 @@ public class MD5Test {
         //原始 密码
         String source = "123456";
         //盐
-        String salt = "admin";
+        String salt = "helen";
         //散列次数
         int hashIterations = 1024;
 
