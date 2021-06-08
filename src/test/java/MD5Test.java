@@ -41,7 +41,7 @@ public class MD5Test {
 
     @Test
     public void testSha256(){
-        String password = "1";
+        String password = "123456";
         String salt = "helen";
         int hashIterations = 1024;
         password = new Sha256Hash(password, salt, hashIterations).toHex();
