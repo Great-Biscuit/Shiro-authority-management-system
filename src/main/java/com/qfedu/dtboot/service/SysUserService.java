@@ -31,7 +31,7 @@ public interface SysUserService {
 
     SysUser getById(Long userId);
 
-    void deleteByIds(List<Long> asList);
+    void deleteByIds(Long[] asList);
 
     boolean saveUser(SysUser user);
 

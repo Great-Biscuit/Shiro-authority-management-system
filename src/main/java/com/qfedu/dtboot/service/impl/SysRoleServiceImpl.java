@@ -2,12 +2,15 @@ package com.qfedu.dtboot.service.impl;
 
 import com.qfedu.dtboot.dao.SysRoleMapper;
 import com.qfedu.dtboot.entity.SysRole;
+import com.qfedu.dtboot.service.SysRoleMenuService;
 import com.qfedu.dtboot.service.SysRoleService;
+import com.qfedu.dtboot.service.SysUserRoleService;
 import com.qfedu.dtboot.utils.DataGridResult;
 import com.qfedu.dtboot.utils.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -15,6 +18,12 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Autowired
     private SysRoleMapper sysRoleMapper;
+
+    @Autowired
+    private SysRoleMenuService sysRoleMenuService;
+
+    @Autowired
+    private SysUserRoleService sysUserRoleService;
 
     @Override
     public DataGridResult getPageList(Query query) {
@@ -30,6 +39,8 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public void deleteBatch(Long[] roleIds) {
         sysRoleMapper.deleteBatch(roleIds);
+        sysRoleMenuService.deleteByRoleIds(roleIds);
+        sysUserRoleService.deleteByRoleIds(roleIds);
     }
 
     @Override
@@ -44,8 +55,11 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     public boolean saveRole(SysRole role) {
+        role.setCreateTime(new Date());
         int t = sysRoleMapper.insertSelective(role);
         if (t == 0) return false;
+        //创建角色与菜单的关系
+        sysRoleMenuService.saveOrUpdate(role.getRoleId(), role.getMenuIdList());
         return true;
     }
 
@@ -53,6 +67,8 @@ public class SysRoleServiceImpl implements SysRoleService {
     public boolean update(SysRole role) {
         int t = sysRoleMapper.updateByPrimaryKeySelective(role);
         if (t == 0) return false;
+        //更新角色与菜单的关系
+        sysRoleMenuService.saveOrUpdate(role.getRoleId(), role.getMenuIdList());
         return true;
     }
 }

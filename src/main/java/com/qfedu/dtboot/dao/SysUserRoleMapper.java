@@ -27,4 +27,8 @@ public interface SysUserRoleMapper {
      * @return 角色列表
      */
     List<Long> queryRoleIdList(Long userId);
+
+    void deleteByRoleIds(Long[] roleIds);
+
+    void deleteByUserIds(Long[] userIds);
 }

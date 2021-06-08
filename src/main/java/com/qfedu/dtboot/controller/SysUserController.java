@@ -14,7 +14,6 @@ import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -126,7 +125,7 @@ public class SysUserController extends AbstractController {
         if (ArrayUtils.contains(userIds, getUserId())) {
             return R.error("当前用户不可删除!");
         }
-        sysUserService.deleteByIds(Arrays.asList(userIds));
+        sysUserService.deleteByIds(userIds);
         return R.ok();
     }
 

@@ -24,4 +24,6 @@ public interface SysRoleMenuMapper {
      * 根据角色ID获取菜单ID列表
      */
     List<Long> queryMenuIdList(Long roleId);
+
+    void deleteByRoleIds(Long[] roleIds);
 }

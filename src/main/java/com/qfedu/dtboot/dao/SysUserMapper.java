@@ -96,7 +96,7 @@ public interface SysUserMapper {
      * @param userIds
      * @return
      */
-    int deleteBatch(List<Long> userIds);
+    int deleteBatch(Long[] userIds);
 
     /**
      * 根据ID查询用户

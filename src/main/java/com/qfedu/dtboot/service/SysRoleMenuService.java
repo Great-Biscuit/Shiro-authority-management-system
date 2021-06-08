@@ -7,4 +7,8 @@ import java.util.List;
  */
 public interface SysRoleMenuService {
     List<Long> queryMenuIdList(Long roleId);
+
+    void saveOrUpdate(Long roleId, List<Long> menuIdList);
+
+    void deleteByRoleIds(Long[] roleIds);
 }
