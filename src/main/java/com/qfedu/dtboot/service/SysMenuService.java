@@ -9,7 +9,6 @@ import java.util.Set;
 
 /**
  * 菜单管理
- * 
  */
 public interface SysMenuService {
 
@@ -55,4 +54,5 @@ public interface SysMenuService {
      */
     List<SysMenu> getUserMenuList(Long userId);
 
+    SysMenu getById(Long parentId);
 }

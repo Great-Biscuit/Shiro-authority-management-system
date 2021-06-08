@@ -20,7 +20,6 @@ import java.lang.reflect.Method;
 import java.util.Date;
 
 /**
- * Created by helen on 2018/3/9
  * 系统日志：切面处理类
  */
 @Aspect
@@ -39,8 +38,6 @@ public class SysLogAspect {
 
     @AfterReturning("logPointCut()")
     public void saveSysLog(JoinPoint joinPoint){
-
-        System.out.println("切面。");
 
         //保存日志
         SysLog sysLog = new SysLog();

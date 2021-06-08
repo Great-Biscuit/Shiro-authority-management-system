@@ -18,11 +18,6 @@ public class Query extends LinkedHashMap<String, Object> {
         Integer offset = Integer.parseInt(params.get("offset").toString());
         this.put("limit", limit);
         this.put("offset", offset);
-        
-        //防止SQL注入（因为sidx、order是通过拼接SQL实现排序的，会有SQL注入风险）
-       /* String sidx = params.get("sidx").toString();
-        String order = params.get("order").toString();
-        this.put("sidx", SQLFilter.sqlInject(sidx));
-        this.put("order", SQLFilter.sqlInject(order));*/
+
     }
 }

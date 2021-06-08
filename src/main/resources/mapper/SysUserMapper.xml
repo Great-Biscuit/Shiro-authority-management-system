@@ -12,7 +12,8 @@
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
     </resultMap>
     <sql id="Base_Column_List">
-        user_id, username, password, email, mobile, status, create_user_id, create_time
+        user_id
+        , username, password, email, mobile, status, create_user_id, create_time
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
         select
@@ -21,16 +22,17 @@
         where user_id = #{userId,jdbcType=BIGINT}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete from sys_user
+        delete
+        from sys_user
         where user_id = #{userId,jdbcType=BIGINT}
     </delete>
     <insert id="insert" parameterType="com.qfedu.dtboot.entity.SysUser">
         insert into sys_user (user_id, username, password,
-        email, mobile, status,
-        create_user_id, create_time)
+                              email, mobile, status,
+                              create_user_id, create_time)
         values (#{userId,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-        #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT},
-        #{createUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP})
+                #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT},
+                #{createUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP})
     </insert>
     <insert id="insertSelective" parameterType="com.qfedu.dtboot.entity.SysUser">
         insert into sys_user
@@ -116,19 +118,52 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="com.qfedu.dtboot.entity.SysUser">
         update sys_user
-        set username = #{username,jdbcType=VARCHAR},
-        password = #{password,jdbcType=VARCHAR},
-        email = #{email,jdbcType=VARCHAR},
-        mobile = #{mobile,jdbcType=VARCHAR},
-        status = #{status,jdbcType=TINYINT},
-        create_user_id = #{createUserId,jdbcType=BIGINT},
-        create_time = #{createTime,jdbcType=TIMESTAMP}
+        set username       = #{username,jdbcType=VARCHAR},
+            password       = #{password,jdbcType=VARCHAR},
+            email          = #{email,jdbcType=VARCHAR},
+            mobile         = #{mobile,jdbcType=VARCHAR},
+            status         = #{status,jdbcType=TINYINT},
+            create_user_id = #{createUserId,jdbcType=BIGINT},
+            create_time    = #{createTime,jdbcType=TIMESTAMP}
         where user_id = #{userId,jdbcType=BIGINT}
     </update>
 
 
     <select id="queryByUserName" resultType="com.qfedu.dtboot.entity.SysUser">
-    select * from sys_user where username = #{username}
-  </select>
+        select *
+        from sys_user
+        where username = #{username}
+    </select>
+
+    <select id="queryAllPerms" resultType="string">
+        select m.perms
+        from sys_user_role ur
+                 LEFT JOIN sys_role_menu rm on ur.role_id = rm.role_id
+                 LEFT JOIN sys_menu m on rm.menu_id = m.menu_id
+        where ur.user_id = #{userId}
+    </select>
+
+    <select id="queryAllMenuId" resultType="long">
+        select distinct rm.menu_id
+        from sys_user_role ur
+                 LEFT JOIN sys_role_menu rm on ur.role_id = rm.role_id
+        where ur.user_id = #{userId}
+    </select>
+
+    <select id="queryList" resultType="com.qfedu.dtboot.entity.SysUser">
+        select
+        user_id as userId, username, password, email, mobile, status, create_user_id as createUserId, create_time as
+        createTime
+        from sys_user u
+        order by u.user_id asc
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="queryTotal" resultType="int">
+        select count(*)
+        from sys_user
+    </select>
 
 </mapper>
