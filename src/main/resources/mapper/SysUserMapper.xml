@@ -179,7 +179,7 @@
     </delete>
 
     <select id="selectById" resultType="com.qfedu.dtboot.entity.SysUser">
-        select *,
+        select *
         from sys_user
         where user_id = #{userId}
     </select>

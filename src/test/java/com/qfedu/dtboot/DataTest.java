@@ -84,4 +84,9 @@ public class DataTest {
         sysRoleService.saveRole(role);
     }
 
+    @Test
+    public void selectUserById() {
+        System.out.println(sysUserService.getById(1L));
+    }
+
 }

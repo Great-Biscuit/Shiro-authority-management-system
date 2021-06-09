@@ -84,10 +84,12 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public boolean updateUser(SysUser user) {
-        if (StringUtils.isBlank(user.getUsername()) || StringUtils.isBlank(user.getPassword())) {
+        if (StringUtils.isBlank(user.getUsername())) {
             return false;
         }
-        user.setPassword(new Md5Hash(user.getPassword(), user.getUsername(), 1024).toHex());
+        if (!StringUtils.isBlank(user.getPassword())) {
+            user.setPassword(new Md5Hash(user.getPassword(), user.getUsername(), 1024).toHex());
+        }
         long t = sysUserMapper.updateByPrimaryKeySelective(user);
         if (t == 0L) return false;
         //更新角色列表

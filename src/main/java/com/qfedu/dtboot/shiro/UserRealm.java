@@ -32,7 +32,7 @@ public class UserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        System.out.println("认证。。。。。。");
+        System.out.println("认证!");
 
         //用户输入
         String usernameInput = (String)token.getPrincipal();
@@ -63,29 +63,6 @@ public class UserRealm extends AuthorizingRealm {
 
         return info;
     }
-
-    /**
-     * 授权
-     * @param principals
-     * @return
-     */
-    /*@Override
-    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        System.out.println("授权。。。。。。");
-
-        //用户角色列表
-        List<String> roleList = Arrays.asList("admin");
-        //角色授权
-        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        info.addRoles(roleList);
-
-        //用户权限列表
-        List<String> permList = Arrays.asList("sys:menu:update");
-        //资源授权
-        info.addStringPermissions(permList);
-
-        return info;
-    }*/
 
 
     /**

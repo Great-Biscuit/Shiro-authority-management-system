@@ -76,7 +76,6 @@ public class SysLoginController {
         if(rememberMe != null) {
             remember = true;
         }
-        //System.out.println(rememberMe);
 
         try{
             Subject subject = ShiroUtils.getSubject();
