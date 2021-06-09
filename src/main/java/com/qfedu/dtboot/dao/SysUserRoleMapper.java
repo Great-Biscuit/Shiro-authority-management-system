@@ -28,7 +28,7 @@ public interface SysUserRoleMapper {
      */
     List<Long> queryRoleIdList(Long userId);
 
-    void deleteByRoleIds(Long[] roleIds);
+    int deleteByRoleIds(Long[] roleIds);
 
-    void deleteByUserIds(Long[] userIds);
+    int deleteByUserIds(Long[] userIds);
 }

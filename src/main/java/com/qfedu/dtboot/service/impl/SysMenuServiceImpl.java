@@ -4,7 +4,7 @@ import com.qfedu.dtboot.dao.SysMenuMapper;
 import com.qfedu.dtboot.dao.SysUserMapper;
 import com.qfedu.dtboot.entity.SysMenu;
 import com.qfedu.dtboot.service.SysMenuService;
-import com.qfedu.dtboot.service.SysUserService;
+import com.qfedu.dtboot.service.SysRoleMenuService;
 import com.qfedu.dtboot.utils.Constant;
 import com.qfedu.dtboot.utils.DataGridResult;
 import com.qfedu.dtboot.utils.Query;
@@ -23,9 +23,9 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Autowired
     private SysMenuMapper sysMenuMapper;
     @Autowired
-    private SysUserService sysUserService;
-    @Autowired
     private SysUserMapper sysUserMapper;
+    @Autowired
+    private SysRoleMenuService sysRoleMenuService;
 
     @Override
     public List<SysMenu> queryListAll() {
@@ -35,7 +35,7 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public DataGridResult getPageList(Query query) {
 
-		List<SysMenu> rows = sysMenuMapper.queryList(query);
+        List<SysMenu> rows = sysMenuMapper.queryList(query);
 		int total = sysMenuMapper.queryTotal(query);
 
 		//创建DataGridResult对象
@@ -46,8 +46,9 @@ public class SysMenuServiceImpl implements SysMenuService {
 	@Override
     @Transactional(propagation = Propagation.REQUIRED)
 	public void deleteBatch(Long[] menuIds) {
-		sysMenuMapper.deleteBatch(menuIds);
-	}
+        sysMenuMapper.deleteBatch(menuIds);
+        sysRoleMenuService.deleteByMenuIds(menuIds);
+    }
 
     @Override
     public List<SysMenu> queryNotButtonList() {

@@ -4,7 +4,6 @@ import com.qfedu.dtboot.dao.SysRoleMapper;
 import com.qfedu.dtboot.entity.SysRole;
 import com.qfedu.dtboot.service.SysRoleMenuService;
 import com.qfedu.dtboot.service.SysRoleService;
-import com.qfedu.dtboot.service.SysUserRoleService;
 import com.qfedu.dtboot.utils.DataGridResult;
 import com.qfedu.dtboot.utils.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +21,6 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Autowired
     private SysRoleMenuService sysRoleMenuService;
 
-    @Autowired
-    private SysUserRoleService sysUserRoleService;
-
     @Override
     public DataGridResult getPageList(Query query) {
 
@@ -39,8 +35,6 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public void deleteBatch(Long[] roleIds) {
         sysRoleMapper.deleteBatch(roleIds);
-        sysRoleMenuService.deleteByRoleIds(roleIds);
-        sysUserRoleService.deleteByRoleIds(roleIds);
     }
 
     @Override

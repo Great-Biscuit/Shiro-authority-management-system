@@ -11,4 +11,6 @@ public interface SysRoleMenuService {
     void saveOrUpdate(Long roleId, List<Long> menuIdList);
 
     void deleteByRoleIds(Long[] roleIds);
+
+    void deleteByMenuIds(Long[] menuIds);
 }

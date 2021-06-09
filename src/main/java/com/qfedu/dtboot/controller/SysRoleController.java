@@ -16,7 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/sys/role")
-public class SysRoleController {
+public class SysRoleController extends AbstractController {
 
     @Autowired
     private SysRoleService sysRoleService;
@@ -58,6 +58,7 @@ public class SysRoleController {
     @RequestMapping("/save")
     @RequiresPermissions("sys:role:save")
     public R save(@RequestBody SysRole role) {
+        role.setCreateUserId(getUserId());
         boolean flag = sysRoleService.saveRole(role);
         return R.ok();
     }

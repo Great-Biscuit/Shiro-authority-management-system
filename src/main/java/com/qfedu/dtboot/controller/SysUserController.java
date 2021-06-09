@@ -49,6 +49,15 @@ public class SysUserController extends AbstractController {
         return sysUserService.getPageList(query);
     }
 
+    /**
+     * 修改密码
+     *
+     * @param password
+     * @param newPassword
+     * @return
+     */
+    @MyLog("修改密码")
+    @RequestMapping("/password")
     public R updatePassword(String password, String newPassword) {
         if (StringUtils.isBlank(newPassword)) {
             return R.error("新密码不能为空");
@@ -91,6 +100,7 @@ public class SysUserController extends AbstractController {
     @RequestMapping("/save")
     @RequiresPermissions("sys:user:sava")
     public R userSave(@RequestBody SysUser user) {
+        user.setCreateUserId(getUserId());
         boolean flag = sysUserService.saveUser(user);
         return R.ok();
     }

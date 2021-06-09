@@ -29,7 +29,7 @@ public class SysUserRoleServiceImpl implements SysUserRoleService {
     public void saveOrUpdate(Long userId, List<Long> roleIdList) {
         //先删除
         sysUserRoleMapper.deleteByUserIds(new Long[]{userId});
-        //看是修改还是新增
+        //看有无需添加的数据
         if (roleIdList == null || roleIdList.size() == 0)
             return;
         //再保存

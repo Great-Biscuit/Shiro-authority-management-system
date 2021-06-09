@@ -25,5 +25,7 @@ public interface SysRoleMenuMapper {
      */
     List<Long> queryMenuIdList(Long roleId);
 
-    void deleteByRoleIds(Long[] roleIds);
+    int deleteByRoleIds(Long[] roleIds);
+
+    int deleteByMenuIds(Long[] menuIds);
 }

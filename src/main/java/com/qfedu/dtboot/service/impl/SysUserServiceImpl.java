@@ -61,7 +61,6 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public void deleteByIds(Long[] asList) {
         sysUserMapper.deleteBatch(asList);
-        sysUserRoleService.deleteByUserIds(asList);
     }
 
     @Override

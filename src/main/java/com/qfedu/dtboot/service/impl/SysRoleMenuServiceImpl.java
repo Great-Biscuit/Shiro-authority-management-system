@@ -45,4 +45,9 @@ public class SysRoleMenuServiceImpl implements SysRoleMenuService {
     public void deleteByRoleIds(Long[] roleIds) {
         sysRoleMenuMapper.deleteByRoleIds(roleIds);
     }
+
+    @Override
+    public void deleteByMenuIds(Long[] menuIds) {
+        sysRoleMenuMapper.deleteByMenuIds(menuIds);
+    }
 }
