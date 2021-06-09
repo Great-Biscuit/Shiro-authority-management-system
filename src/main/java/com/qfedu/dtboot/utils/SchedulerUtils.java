@@ -5,9 +5,6 @@ import com.qfedu.dtboot.entity.ScheduleJob;
 import com.qfedu.dtboot.quartz.QuartzJob;
 import org.quartz.*;
 
-/**
- * Created by helen on 2018/3/12
- */
 public class SchedulerUtils {
 
     public static void createJob(Scheduler scheduler,  ScheduleJob scheduleJob){

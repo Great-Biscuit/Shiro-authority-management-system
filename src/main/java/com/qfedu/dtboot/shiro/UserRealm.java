@@ -73,7 +73,7 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 
-        System.out.println("授权。。。。。。");
+        System.out.println("授权");
 
         SysUser user = (SysUser)principals.getPrimaryPrincipal();
         Long userId = user.getUserId();

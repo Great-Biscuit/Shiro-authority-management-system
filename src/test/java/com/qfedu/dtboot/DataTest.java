@@ -57,14 +57,14 @@ public class DataTest {
     @Test
     public void UserCRUDTest() {
         SysUser user = new SysUser();
-        user.setUserId(101L);
-        user.setUsername("Test");
+        user.setUserId(5L);
+        user.setUsername("Test001");
         user.setPassword("123");
         sysUserService.saveUser(user);
-        System.out.println(sysUserService.getById(101L));
-        user.setPassword("456");
-        sysUserService.updateUser(user);
-        System.out.println(sysUserService.getById(101L));
+//        System.out.println(sysUserService.getById(101L));
+//        user.setPassword("456");
+//        sysUserService.updateUser(user);
+//        System.out.println(sysUserService.getById(101L));
     }
 
     @Test
@@ -82,7 +82,8 @@ public class DataTest {
     @Test
     public void saveRoleTest() {
         SysRole role = new SysRole();
-        role.setRoleName("Test");
+        role.setRoleId(7L);
+        role.setRoleName("TestRole001");
         List<Long> list = new ArrayList<>();
         list.add(1L);
         role.setMenuIdList(list);
