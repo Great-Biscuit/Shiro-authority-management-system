@@ -99,14 +99,17 @@
 
     <select id="queryList" resultType="com.qfedu.dtboot.entity.SysRole">
         select * from sys_role
-        <where>
-            <if test="roleName != null and roleName.trim() != ''">
-                and `role_name` like concat('%',#{roleName},'%')
-            </if>
-            <if test="createUserId != null">
-                and create_user_id = #{createUserId}
-            </if>
-        </where>
+        <!--        <where>-->
+        <!--            <if test="roleName != null and roleName.trim() != ''">-->
+        <!--                and `role_name` like concat('%',#{roleName},'%')-->
+        <!--            </if>-->
+        <!--            <if test="createUserId != null">-->
+        <!--                and create_user_id = #{createUserId}-->
+        <!--            </if>-->
+        <!--        </where>-->
+        <if test="search != null">
+            where sys_role.role_name like #{search}
+        </if>
         order by role_id asc
         <if test="offset != null and limit != null">
             limit #{offset}, #{limit}

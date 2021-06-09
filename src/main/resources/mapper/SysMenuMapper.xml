@@ -142,6 +142,9 @@
         menu_id as menuId, name, url, perms, type, icon, order_num as orderNum,
         (select p.name from sys_menu p where p.menu_id = m.parent_id) as parentName
         from sys_menu m
+        <if test="search != null">
+            where m.name like #{search}
+        </if>
         order by m.order_num asc
         <if test="offset != null and limit != null">
             limit #{offset}, #{limit}

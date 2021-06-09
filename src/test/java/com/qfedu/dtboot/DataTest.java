@@ -1,8 +1,10 @@
 package com.qfedu.dtboot;
 
 import com.qfedu.dtboot.dao.SysUserRoleMapper;
+import com.qfedu.dtboot.entity.SysMenu;
 import com.qfedu.dtboot.entity.SysRole;
 import com.qfedu.dtboot.entity.SysUser;
+import com.qfedu.dtboot.service.SysMenuService;
 import com.qfedu.dtboot.service.SysRoleMenuService;
 import com.qfedu.dtboot.service.SysRoleService;
 import com.qfedu.dtboot.service.SysUserService;
@@ -18,6 +20,9 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DataTest {
+
+    @Autowired
+    SysMenuService sysMenuService;
 
     @Autowired
     SysRoleMenuService sysRoleMenuService;
@@ -87,6 +92,14 @@ public class DataTest {
     @Test
     public void selectUserById() {
         System.out.println(sysUserService.getById(1L));
+    }
+
+    @Test
+    public void selectAllMenuTest() {
+        List<SysMenu> list = sysMenuService.queryListAll();
+        for (SysMenu sysMenu : list) {
+            System.out.println(sysMenu);
+        }
     }
 
 }

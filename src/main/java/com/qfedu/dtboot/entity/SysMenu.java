@@ -124,4 +124,21 @@ public class SysMenu implements Serializable {
     public void setList(List<?> list) {
         this.list = list;
     }
+
+    @Override
+    public String toString() {
+        return "SysMenu{" +
+                "menuId=" + menuId +
+                ", parentId=" + parentId +
+                ", name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                ", perms='" + perms + '\'' +
+                ", type=" + type +
+                ", icon='" + icon + '\'' +
+                ", orderNum=" + orderNum +
+                ", parentName='" + parentName + '\'' +
+                ", open=" + open +
+                ", list=" + list +
+                '}';
+    }
 }

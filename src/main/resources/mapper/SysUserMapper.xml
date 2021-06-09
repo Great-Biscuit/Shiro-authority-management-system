@@ -155,6 +155,9 @@
         user_id as userId, username, password, email, mobile, status, create_user_id as createUserId, create_time as
         createTime
         from sys_user u
+        <if test="search != null">
+            where u.username like #{search}
+        </if>
         order by u.user_id asc
         <if test="offset != null and limit != null">
             limit #{offset}, #{limit}
