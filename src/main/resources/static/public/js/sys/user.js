@@ -96,7 +96,11 @@ var vm = new Vue({
         roleList:{},
         user:{
             status:1,
-            roleIdList:[]
+            roleIdList:[],
+            username: '',
+            password: '',
+            email: '',
+            mobile: ''
         }
     },
     methods: {
@@ -128,6 +132,7 @@ var vm = new Vue({
         // },
         update: function () {
             var userId = getSelectedRow();
+            console.log("userId", userId);
             if(userId == null){
                 return ;
             }
@@ -147,26 +152,62 @@ var vm = new Vue({
 
             window.location.href="../sys/permissions/index/"+userId;
         },
-        del: function () {
+        // del: function () {
+        //     var userIds = getSelectedRows();
+        //     console.log("userIds:", userIds)
+        //     if(userIds == null){
+        //         return ;
+        //     }
+        //
+        //     confirm('确定要删除选中的记录？', function(){
+        //         $.ajax({
+        //             type: "POST",
+        //             url: "../sys/user/delete",
+        //             contentType: "application/json",
+        //             data: JSON.stringify(userIds),
+        //             success: function(r){
+        //                 if(r.code === 0){
+        //                     layer.alert('删除成功', function(index){
+        //                         layer.close(index);
+        //                         vm.reload();
+        //                     });
+        //                 }else{
+        //                     layer.alert(r.msg);
+        //                 }
+        //             }
+        //         });
+        //     });
+        // },
+        del: function(){
             var userIds = getSelectedRows();
             if(userIds == null){
                 return ;
             }
+            var id = 'userId';
+            //提示确认框
+            layer.confirm('您确定要删除所选数据吗？', {
+                btn: ['确定', '取消'] //可以无限个按钮
+            }, function(index, layero){
+                var ids = new Array();
+                //遍历所有选择的行数据，取每条数据对应的ID
+                $.each(userIds, function(i, row) {
+                    ids[i] = row[id];
+                });
 
-            confirm('确定要删除选中的记录？', function(){
                 $.ajax({
                     type: "POST",
                     url: "../sys/user/delete",
-                    contentType: "application/json",
-                    data: JSON.stringify(userIds),
-                    success: function(r){
-                        if(r.code == 0){
-                            alert('操作成功', function(){
-                                location.reload();
-                            });
+                    data: JSON.stringify(ids),
+                    success : function(r) {
+                        if(r.code === 0){
+                            layer.alert('删除成功');
+                            $('#table').bootstrapTable('refresh');
                         }else{
-                            alert(r.msg);
+                            layer.alert(r.msg);
                         }
+                    },
+                    error : function() {
+                        layer.alert('服务器没有返回数据，可能服务器忙，请重试');
                     }
                 });
             });
@@ -180,17 +221,19 @@ var vm = new Vue({
                 data: JSON.stringify(vm.user),
                 success: function(r){
                     if(r.code === 0){
-                        alert('操作成功', function(){
+                        layer.alert('操作成功', function(index){
+                            layer.close(index);
                             vm.reload();
                         });
                     }else{
-                        alert(r.msg);
+                        layer.alert(r.msg);
                     }
                 }
             });
         },
         getUser: function(userId){
-            $.get("../sys/user/info/"+userId, function(r){
+            $.get("../sys/user/info/"+userId.userId, function(r){
+                console.log("userInfo", userId.userId);
                 vm.user = r.user;
                 vm.user.password = null;
 
@@ -223,13 +266,9 @@ var vm = new Vue({
         //         }
         //     });
         // },
-        reload: function () {
+        reload: function (event) {
             vm.showList = true;
-            var page = $("#table").jqGrid('getGridParam','page');
-            $("#table").jqGrid('setGridParam',{
-                postData:{'username': vm.q.username},
-                page:page
-            }).trigger("reloadGrid");
+            $("#table").bootstrapTable('refresh');
         }
     }
 });
