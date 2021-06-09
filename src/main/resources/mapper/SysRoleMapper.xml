@@ -148,4 +148,9 @@
         order by role_id asc
     </select>
 
+    <select id="queryByRoleName" resultType="com.qfedu.dtboot.entity.SysRole">
+        select *
+        from sys_role when role_name = #{roleName}
+    </select>
+
 </mapper>

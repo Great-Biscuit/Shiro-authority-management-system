@@ -72,8 +72,9 @@ public class SysUserServiceImpl implements SysUserService {
         user.setPassword(new Md5Hash(user.getPassword(), user.getUsername(), 1024).toHex());
         int t = sysUserMapper.insertSelective(user);
         if (t == 0) return false;
+        SysUser okUser = sysUserMapper.queryByUserName(user.getUsername());
         //添加角色列表
-        sysUserRoleService.saveOrUpdate(user.getUserId(), user.getRoleIdList());
+        sysUserRoleService.saveOrUpdate(okUser.getUserId(), user.getRoleIdList());
         return true;
     }
 

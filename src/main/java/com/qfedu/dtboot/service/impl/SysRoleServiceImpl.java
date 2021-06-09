@@ -52,8 +52,9 @@ public class SysRoleServiceImpl implements SysRoleService {
         role.setCreateTime(new Date());
         int t = sysRoleMapper.insertSelective(role);
         if (t == 0) return false;
+        SysRole okRole = sysRoleMapper.queryByRoleName(role.getRoleName());
         //创建角色与菜单的关系
-        sysRoleMenuService.saveOrUpdate(role.getRoleId(), role.getMenuIdList());
+        sysRoleMenuService.saveOrUpdate(okRole.getRoleId(), role.getMenuIdList());
         return true;
     }
 
