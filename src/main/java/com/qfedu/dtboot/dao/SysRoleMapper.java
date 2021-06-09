@@ -41,4 +41,5 @@ public interface SysRoleMapper {
 
     List<SysRole> selectAll();
 
+    SysRole queryByRoleName(String roleName);
 }

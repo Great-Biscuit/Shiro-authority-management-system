@@ -42,7 +42,7 @@ public class SysUserController extends AbstractController {
      * @return
      */
     @RequestMapping("/list")
-    @RequiresPermissions("sys:user:list")
+    @RequiresPermissions(value = {"sys:user:list"})
     public DataGridResult list(@RequestParam Map<String, Object> params) {
         //查询列表数据
         Query query = new Query(params);//进一步处理参数
@@ -80,7 +80,7 @@ public class SysUserController extends AbstractController {
      * @return
      */
     @RequestMapping("/info/{userId}")
-    @RequiresPermissions("sys:user:info")
+    @RequiresPermissions(value = {"sys:user:info"})
     public R userInfo(@PathVariable("userId") Long userId) {
         SysUser sysUser = sysUserService.getById(userId);
         //获取用户所属的角色列表
@@ -98,7 +98,7 @@ public class SysUserController extends AbstractController {
      */
     @MyLog("保存用户")
     @RequestMapping("/save")
-    @RequiresPermissions("sys:user:sava")
+    @RequiresPermissions(value = {"sys:user:save"})
     public R userSave(@RequestBody SysUser user) {
         user.setCreateUserId(getUserId());
         boolean flag = sysUserService.saveUser(user);
@@ -113,7 +113,7 @@ public class SysUserController extends AbstractController {
      */
     @MyLog("修改用户")
     @RequestMapping("/update")
-    @RequiresPermissions("sys:user:update")
+    @RequiresPermissions(value = {"sys:user:update"})
     public R userUpdate(@RequestBody SysUser user) {
         boolean flag = sysUserService.updateUser(user);
         return R.ok();
@@ -127,7 +127,7 @@ public class SysUserController extends AbstractController {
      */
     @MyLog("删除用户")
     @RequestMapping("/delete")
-    @RequiresPermissions("sys:user:delete")
+    @RequiresPermissions(value = {"sys:user:delete"})
     public R userSave(@RequestBody Long[] userIds) {
         if (ArrayUtils.contains(userIds, 1L)) {
             return R.error("系统管理员不可删除!");
