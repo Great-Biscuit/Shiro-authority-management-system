@@ -39,7 +39,6 @@ public class SysMenuController extends AbstractController{
 
     @MyLog("删除菜单记录")
     @PostMapping("/del")
-    //@RequiresRoles({"admin"})
     @RequiresPermissions(value={"sys:menu:delete"})
     public R deleteBatch(@RequestBody Long[] menuIds) {
         for(Long menuId : menuIds){

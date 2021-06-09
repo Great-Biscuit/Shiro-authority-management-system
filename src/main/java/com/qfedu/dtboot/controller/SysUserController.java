@@ -102,6 +102,9 @@ public class SysUserController extends AbstractController {
     public R userSave(@RequestBody SysUser user) {
         user.setCreateUserId(getUserId());
         boolean flag = sysUserService.saveUser(user);
+        if (!flag) {
+            return R.error("保存用户失败!");
+        }
         return R.ok();
     }
 
@@ -116,6 +119,9 @@ public class SysUserController extends AbstractController {
     @RequiresPermissions(value = {"sys:user:update"})
     public R userUpdate(@RequestBody SysUser user) {
         boolean flag = sysUserService.updateUser(user);
+        if (!flag) {
+            return R.error("改用户失败!");
+        }
         return R.ok();
     }
 

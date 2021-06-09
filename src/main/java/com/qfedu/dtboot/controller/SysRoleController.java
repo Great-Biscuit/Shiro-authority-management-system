@@ -60,6 +60,9 @@ public class SysRoleController extends AbstractController {
     public R save(@RequestBody SysRole role) {
         role.setCreateUserId(getUserId());
         boolean flag = sysRoleService.saveRole(role);
+        if (!flag) {
+            return R.error("保存角色失败!");
+        }
         return R.ok();
     }
 
@@ -68,6 +71,9 @@ public class SysRoleController extends AbstractController {
     @RequiresPermissions("sys:role:update")
     public R update(@RequestBody SysRole role) {
         boolean flag = sysRoleService.update(role);
+        if (!flag) {
+            return R.error("修改角色失败!");
+        }
         return R.ok();
     }
 
