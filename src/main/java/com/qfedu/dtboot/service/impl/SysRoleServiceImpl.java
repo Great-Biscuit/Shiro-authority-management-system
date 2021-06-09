@@ -50,18 +50,17 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public boolean saveRole(SysRole role) {
         role.setCreateTime(new Date());
-        int t = sysRoleMapper.insertSelective(role);
-        if (t == 0) return false;
-        SysRole okRole = sysRoleMapper.queryByRoleName(role.getRoleName());
+        long t = sysRoleMapper.insertSelective(role);
+        if (t == 0L) return false;
         //创建角色与菜单的关系
-        sysRoleMenuService.saveOrUpdate(okRole.getRoleId(), role.getMenuIdList());
+        sysRoleMenuService.saveOrUpdate(t, role.getMenuIdList());
         return true;
     }
 
     @Override
     public boolean update(SysRole role) {
-        int t = sysRoleMapper.updateByPrimaryKeySelective(role);
-        if (t == 0) return false;
+        long t = sysRoleMapper.updateByPrimaryKeySelective(role);
+        if (t == 0L) return false;
         //更新角色与菜单的关系
         sysRoleMenuService.saveOrUpdate(role.getRoleId(), role.getMenuIdList());
         return true;

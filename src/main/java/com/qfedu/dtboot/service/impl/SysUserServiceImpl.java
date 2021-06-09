@@ -70,11 +70,10 @@ public class SysUserServiceImpl implements SysUserService {
         }
         user.setCreateTime(new Date());
         user.setPassword(new Md5Hash(user.getPassword(), user.getUsername(), 1024).toHex());
-        int t = sysUserMapper.insertSelective(user);
-        if (t == 0) return false;
-        SysUser okUser = sysUserMapper.queryByUserName(user.getUsername());
+        long t = sysUserMapper.insertSelective(user);
+        if (t == 0L) return false;
         //添加角色列表
-        sysUserRoleService.saveOrUpdate(okUser.getUserId(), user.getRoleIdList());
+        sysUserRoleService.saveOrUpdate(t, user.getRoleIdList());
         return true;
     }
 
@@ -84,7 +83,7 @@ public class SysUserServiceImpl implements SysUserService {
             return false;
         }
         user.setPassword(new Md5Hash(user.getPassword(), user.getUsername(), 1024).toHex());
-        int t = sysUserMapper.updateByPrimaryKeySelective(user);
+        long t = sysUserMapper.updateByPrimaryKeySelective(user);
         if (t == 0) return false;
         //更新角色列表
         sysUserRoleService.saveOrUpdate(user.getUserId(), user.getRoleIdList());
