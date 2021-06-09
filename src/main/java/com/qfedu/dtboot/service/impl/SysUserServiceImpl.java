@@ -10,6 +10,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -64,6 +66,7 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public boolean saveUser(SysUser user) {
         if (StringUtils.isBlank(user.getUsername()) || StringUtils.isBlank(user.getPassword())) {
             return false;
@@ -73,18 +76,20 @@ public class SysUserServiceImpl implements SysUserService {
         long t = sysUserMapper.insertSelective(user);
         if (t == 0L) return false;
         //添加角色列表
-        sysUserRoleService.saveOrUpdate(t, user.getRoleIdList());
+        SysUser okUser = sysUserMapper.queryByUserName(user.getUsername());
+        sysUserRoleService.saveOrUpdate(okUser.getUserId(), user.getRoleIdList());
         return true;
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public boolean updateUser(SysUser user) {
         if (StringUtils.isBlank(user.getUsername()) || StringUtils.isBlank(user.getPassword())) {
             return false;
         }
         user.setPassword(new Md5Hash(user.getPassword(), user.getUsername(), 1024).toHex());
         long t = sysUserMapper.updateByPrimaryKeySelective(user);
-        if (t == 0) return false;
+        if (t == 0L) return false;
         //更新角色列表
         sysUserRoleService.saveOrUpdate(user.getUserId(), user.getRoleIdList());
         return true;

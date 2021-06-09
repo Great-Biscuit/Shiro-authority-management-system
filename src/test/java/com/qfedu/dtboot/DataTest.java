@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -59,6 +60,28 @@ public class DataTest {
         user.setPassword("456");
         sysUserService.updateUser(user);
         System.out.println(sysUserService.getById(101L));
+    }
+
+    @Test
+    public void saveUserTest() {
+        SysUser user = new SysUser();
+        user.setUserId(105L);
+        user.setUsername("Test105");
+        user.setPassword("123");
+        List<Long> list = new ArrayList<>();
+        list.add(5L);
+        user.setRoleIdList(list);
+        sysUserService.saveUser(user);
+    }
+
+    @Test
+    public void saveRoleTest() {
+        SysRole role = new SysRole();
+        role.setRoleName("Test");
+        List<Long> list = new ArrayList<>();
+        list.add(1L);
+        role.setMenuIdList(list);
+        sysRoleService.saveRole(role);
     }
 
 }

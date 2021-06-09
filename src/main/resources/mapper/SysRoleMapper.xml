@@ -150,7 +150,8 @@
 
     <select id="queryByRoleName" resultType="com.qfedu.dtboot.entity.SysRole">
         select *
-        from sys_role when role_name = #{roleName}
+        from sys_role
+        where role_name = #{roleName}
     </select>
 
 </mapper>
