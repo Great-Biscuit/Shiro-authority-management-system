@@ -6,7 +6,6 @@ import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 
 /**
- * Created by helen on 2018/3/4
  * 配置druid页面访问参数
  */
 @WebServlet(urlPatterns = "/druid/*",

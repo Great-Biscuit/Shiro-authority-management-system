@@ -15,7 +15,6 @@ import java.util.List;
 
 
 /**
- * Created by helen on 2018/3/4
  * 自动读取 application.properties文件中以spring.datasource开头的信息
  * 将DataSource对象的实现类变为了DruidDataSource对象。
  */

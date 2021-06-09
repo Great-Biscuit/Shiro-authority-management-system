@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-/**
- * Created by helen on 2018/3/9
- */
 @RestController
 @RequestMapping("/schedule/job")
 public class ScheduleJobController {

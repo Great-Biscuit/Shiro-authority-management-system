@@ -1,14 +1,22 @@
 package com.qfedu.dtboot.service;
 
+import com.qfedu.dtboot.entity.SysRole;
 import com.qfedu.dtboot.utils.DataGridResult;
 import com.qfedu.dtboot.utils.Query;
 
-/**
- * Created by helen on 2018/3/3
- */
+import java.util.List;
+
 public interface SysRoleService {
 
     DataGridResult getPageList(Query query);
 
     void deleteBatch(Long[] id);
+
+    SysRole getById(Long roleId);
+
+    List<SysRole> list();
+
+    boolean saveRole(SysRole role);
+
+    boolean update(SysRole role);
 }

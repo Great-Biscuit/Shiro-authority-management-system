@@ -4,6 +4,7 @@ import com.qfedu.dtboot.dao.SysMenuMapper;
 import com.qfedu.dtboot.dao.SysUserMapper;
 import com.qfedu.dtboot.entity.SysMenu;
 import com.qfedu.dtboot.service.SysMenuService;
+import com.qfedu.dtboot.service.SysRoleMenuService;
 import com.qfedu.dtboot.utils.Constant;
 import com.qfedu.dtboot.utils.DataGridResult;
 import com.qfedu.dtboot.utils.Query;
@@ -19,12 +20,12 @@ import java.util.*;
 @Service
 public class SysMenuServiceImpl implements SysMenuService {
 
-	@Autowired
-	private SysMenuMapper sysMenuMapper;
-	/*@Autowired
-	private SysUserService sysUserService;*/
+    @Autowired
+    private SysMenuMapper sysMenuMapper;
     @Autowired
     private SysUserMapper sysUserMapper;
+    @Autowired
+    private SysRoleMenuService sysRoleMenuService;
 
     @Override
     public List<SysMenu> queryListAll() {
@@ -32,9 +33,9 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-	public DataGridResult getPageList(Query query) {
+    public DataGridResult getPageList(Query query) {
 
-		List<SysMenu> rows = sysMenuMapper.queryList(query);
+        List<SysMenu> rows = sysMenuMapper.queryList(query);
 		int total = sysMenuMapper.queryTotal(query);
 
 		//创建DataGridResult对象
@@ -45,8 +46,9 @@ public class SysMenuServiceImpl implements SysMenuService {
 	@Override
     @Transactional(propagation = Propagation.REQUIRED)
 	public void deleteBatch(Long[] menuIds) {
-		sysMenuMapper.deleteBatch(menuIds);
-	}
+        sysMenuMapper.deleteBatch(menuIds);
+        sysRoleMenuService.deleteByMenuIds(menuIds);
+    }
 
     @Override
     public List<SysMenu> queryNotButtonList() {
@@ -81,9 +83,9 @@ public class SysMenuServiceImpl implements SysMenuService {
 			for(SysMenu menu : menuList){
 				permsList.add(menu.getPerms());
 			}
-		}else{
-			permsList = sysMenuMapper.queryAllPerms(userId);
-		}
+		}else {
+            permsList = sysUserMapper.queryAllPerms(userId);
+        }
 
 		//用户权限列表
 		Set<String> permsSet = new HashSet<String>();
@@ -99,24 +101,30 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public List<SysMenu> getUserMenuList(Long userId) {
         //系统管理员，拥有最高权限
-        if(userId == Constant.SUPER_ADMIN){
+        if (userId == Constant.SUPER_ADMIN) {
             return getAllMenuList(null);
         }
 
         //用户菜单列表
-        List<Long> menuIdList = sysMenuMapper.queryAllMenuId(userId);
+        List<Long> menuIdList = sysUserMapper.queryAllMenuId(userId);
         return getAllMenuList(menuIdList);
+    }
+
+    @Override
+    public SysMenu getById(Long userId) {
+        return sysMenuMapper.selectByPrimaryKey(userId);
     }
 
     /**
      * 根据父菜单，查询当前用户可见的子菜单
-     * @param parentId 父菜单ID
-     * @param menuIdList  用户菜单ID列表
+     *
+     * @param parentId   父菜单ID
+     * @param menuIdList 用户菜单ID列表
      */
     private List<SysMenu> queryListParentId(Long parentId, List<Long> menuIdList) {
         //根据副菜单id获取子菜单列表
         List<SysMenu> menuList = sysMenuMapper.queryListParentId(parentId);
-        if(menuIdList == null){
+        if (menuIdList == null) {
             return menuList;
         }
 

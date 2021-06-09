@@ -14,7 +14,7 @@ public class MD5Test {
         //原始 密码
         String source = "123456";
         //盐
-        String salt = "admin";
+        String salt = "helen";
         //散列次数
         int hashIterations = 1024;
 
@@ -41,7 +41,7 @@ public class MD5Test {
 
     @Test
     public void testSha256(){
-        String password = "1";
+        String password = "123456";
         String salt = "helen";
         int hashIterations = 1024;
         password = new Sha256Hash(password, salt, hashIterations).toHex();

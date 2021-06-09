@@ -1,12 +1,11 @@
 package com.qfedu.dtboot.service;
 
 import com.qfedu.dtboot.entity.SysUser;
+import com.qfedu.dtboot.utils.DataGridResult;
+import com.qfedu.dtboot.utils.Query;
 
 import java.util.List;
 
-/**
- * Created by helen on 2018/3/6
- */
 public interface SysUserService {
 
     /**
@@ -16,7 +15,25 @@ public interface SysUserService {
 
     /**
      * 查询用户的所有权限
-     * @param userId  用户ID
+     *
+     * @param userId 用户ID
      */
     List<String> queryAllPerms(Long userId);
+
+    /**
+     * 查询用户的所有菜单ID
+     */
+    List<Long> queryAllMenuId(Long userId);
+
+    DataGridResult getPageList(Query query);
+
+    boolean updatePassword(Long userId, String password, String newPassword);
+
+    SysUser getById(Long userId);
+
+    void deleteByIds(Long[] asList);
+
+    boolean saveUser(SysUser user);
+
+    boolean updateUser(SysUser user);
 }

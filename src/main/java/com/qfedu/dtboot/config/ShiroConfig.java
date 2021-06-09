@@ -20,7 +20,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Created by helen on 2018/3/6
  * Shiro配置
  *
  */
