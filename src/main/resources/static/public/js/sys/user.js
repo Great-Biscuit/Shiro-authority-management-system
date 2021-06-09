@@ -44,7 +44,7 @@
 
 $(function(){
     var option = {
-        url: 'http://localhost:8090/sys/user/list',
+        url: '../sys/user/list',
         pagination: true,	//显示分页条
         sidePagination: 'server',//服务器端分页
         showRefresh: true,  //显示刷新按钮
@@ -56,7 +56,7 @@ $(function(){
             {checkbox:true},
             { title: '用户ID', field: 'userId', width: 45 },
             { title: '用户名', field: 'username', width: 75 },
-            { title: '所属部门', field: 'deptName', width: 75 },
+            { title: '创建者ID', field: 'createUserId', width: 75 },
             { title: '邮箱', field: 'email', width: 90 },
             { title: '手机号', field: 'mobile', width: 100 },
             { title: '状态', field: 'status', width: 60, formatter: function(value, options, row){
@@ -74,7 +74,7 @@ var setting = {
     data: {
         simpleData: {
             enable: true,
-            idKey: "deptId",
+            // idKey: "deptId",
             pIdKey: "parentId",
             rootPId: -1
         },
@@ -96,38 +96,36 @@ var vm = new Vue({
         roleList:{},
         user:{
             status:1,
-            deptId:null,
-            deptName:null,
             roleIdList:[]
         }
     },
     methods: {
-        query: function () {
-            vm.reload();
-        },
+        // query: function () {
+        //     vm.reload();
+        // },
         add: function(){
             vm.showList = false;
             vm.title = "新增";
             vm.roleList = {};
-            vm.user = {deptName:null, deptId:null, status:1, roleIdList:[]};
+            vm.user = {status:1, roleIdList:[]};
 
             //获取角色信息
             this.getRoleList();
 
-            vm.getDept();
+            // vm.getDept();
         },
-        getDept: function(){
-            //加载部门树
-            $.get("http://localhost:8090/sys/dept/list", function(r){
-                ztree = $.fn.zTree.init($("#deptTree"), setting, r);
-                var node = ztree.getNodeByParam("deptId", vm.user.deptId);
-                if(node != null){
-                    ztree.selectNode(node);
-
-                    vm.user.deptName = node.name;
-                }
-            })
-        },
+        // getDept: function(){
+        //     //加载部门树
+        //     $.get("http://localhost:8090/sys/dept/list", function(r){
+        //         ztree = $.fn.zTree.init($("#deptTree"), setting, r);
+        //         var node = ztree.getNodeByParam("deptId", vm.user.deptId);
+        //         if(node != null){
+        //             ztree.selectNode(node);
+        //
+        //             vm.user.deptName = node.name;
+        //         }
+        //     })
+        // },
         update: function () {
             var userId = getSelectedRow();
             if(userId == null){
@@ -164,7 +162,7 @@ var vm = new Vue({
                     success: function(r){
                         if(r.code == 0){
                             alert('操作成功', function(){
-                                vm.reload();
+                                location.reload();
                             });
                         }else{
                             alert(r.msg);
@@ -196,40 +194,39 @@ var vm = new Vue({
                 vm.user = r.user;
                 vm.user.password = null;
 
-                vm.getDept();
+                // vm.getDept();
             });
         },
         getRoleList: function(){
-            $.get("http://localhost:8090/sys/role/select", function(r){
+            $.get("../sys/role/select", function(r){
                 vm.roleList = r.list;
             });
-            console.log("geiList 测试！")
         },
-        deptTree: function(){
-            layer.open({
-                type: 1,
-                offset: '50px',
-                skin: 'layui-layer-molv',
-                title: "选择部门",
-                area: ['300px', '450px'],
-                shade: 0,
-                shadeClose: false,
-                content: jQuery("#deptLayer"),
-                btn: ['确定', '取消'],
-                btn1: function (index) {
-                    var node = ztree.getSelectedNodes();
-                    //选择上级部门
-                    vm.user.deptId = node[0].deptId;
-                    vm.user.deptName = node[0].name;
-
-                    layer.close(index);
-                }
-            });
-        },
+        // deptTree: function(){
+        //     layer.open({
+        //         type: 1,
+        //         offset: '50px',
+        //         skin: 'layui-layer-molv',
+        //         title: "选择部门",
+        //         area: ['300px', '450px'],
+        //         shade: 0,
+        //         shadeClose: false,
+        //         content: jQuery("#deptLayer"),
+        //         btn: ['确定', '取消'],
+        //         btn1: function (index) {
+        //             var node = ztree.getSelectedNodes();
+        //             //选择上级部门
+        //             vm.user.deptId = node[0].deptId;
+        //             vm.user.deptName = node[0].name;
+        //
+        //             layer.close(index);
+        //         }
+        //     });
+        // },
         reload: function () {
             vm.showList = true;
-            var page = $("#jqGrid").jqGrid('getGridParam','page');
-            $("#jqGrid").jqGrid('setGridParam',{
+            var page = $("#table").jqGrid('getGridParam','page');
+            $("#table").jqGrid('setGridParam',{
                 postData:{'username': vm.q.username},
                 page:page
             }).trigger("reloadGrid");

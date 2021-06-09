@@ -38,7 +38,7 @@
 
 $(function(){
     var option = {
-        url: 'http://localhost:8090/sys/role/list',
+        url: '../sys/role/list',
         pagination: true,	//显示分页条
         sidePagination: 'server',//服务器端分页
         showRefresh: true,  //显示刷新按钮
@@ -50,7 +50,7 @@ $(function(){
             {checkbox:true},
             { title: '角色ID', field: 'roleId',width: 45 },
             { title: '角色名称', field: 'roleName', width: 75 },
-            { title: '所属部门', field: 'deptName', width: 75 },
+            { title: '创建者ID', field: 'createUserId', width: 75 },
             { title: '备注', field: 'remark', width: 100 },
             { title: '创建时间', field: 'createTime', width: 80}
         ]};
@@ -230,6 +230,7 @@ var vm = new Vue({
                     }else{
                         alert(r.msg);
                     }
+                    location.reload();
                 }
             });
         },
