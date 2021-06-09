@@ -84,6 +84,7 @@ public class SysLoginController {
 
             //加密用户输入的密码
             password = new Md5Hash(password, username, 1024).toHex();
+            System.out.println("password："+ password);
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
             token.setRememberMe(remember);
             subject.login(token);

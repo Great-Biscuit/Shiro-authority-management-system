@@ -24,10 +24,10 @@ html { overflow-x:hidden; }
   display: none;
 }
 
-.grid-btn{
+#toolbar{
 	margin-bottom:12px;
 }
-.grid-btn .btn{
+#toolbar .btn{
 	margin-right:10px;
 }
 .pointer{cursor: pointer;}
