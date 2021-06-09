@@ -123,8 +123,8 @@ var vm = new Vue({
         showList: true,
         title:null,
         role:{
-            deptId:null,
-            deptName:null
+            // deptId:null,
+            // deptName:null
         }
     },
     methods: {
@@ -134,12 +134,12 @@ var vm = new Vue({
         add: function(){
             vm.showList = false;
             vm.title = "新增";
-            vm.role = {deptName:null, deptId:null};
+            // vm.role = {deptName:null, deptId:null};
             vm.getMenuTree(null);
 
-            vm.getDept();
+            // vm.getDept();
 
-            vm.getDataTree();
+            // vm.getDataTree();
         },
         update: function () {
             var roleId = getSelectedRow();
@@ -149,10 +149,10 @@ var vm = new Vue({
 
             vm.showList = false;
             vm.title = "修改";
-            vm.getDataTree();
+            // vm.getDataTree();
             vm.getMenuTree(roleId);
 
-            vm.getDept();
+            // vm.getDept();
         },
         del: function () {
             var roleIds = getSelectedRows();
@@ -196,7 +196,7 @@ var vm = new Vue({
                     data_ztree.checkNode(node, true, false);
                 }
 
-                vm.getDept();
+                // vm.getDept();
             });
         },
         saveOrUpdate: function () {
@@ -237,6 +237,7 @@ var vm = new Vue({
         getMenuTree: function(roleId) {
             //加载菜单树
             $.get("../sys/menu/list", function(r){
+                console.log("menuTree", r);
                 menu_ztree = $.fn.zTree.init($("#menuTree"), menu_setting, r);
                 //展开所有节点
                 menu_ztree.expandAll(true);
@@ -246,54 +247,50 @@ var vm = new Vue({
                 }
             });
         },
-        getDataTree: function(roleId) {
-            //加载菜单树
-            $.get("../sys/dept/list", function(r){
-                data_ztree = $.fn.zTree.init($("#dataTree"), data_setting, r);
-                //展开所有节点
-                data_ztree.expandAll(true);
-            });
-        },
-        getDept: function(){
-            //加载部门树
-            $.get("../sys/dept/list", function(r){
-                dept_ztree = $.fn.zTree.init($("#deptTree"), dept_setting, r);
-                var node = dept_ztree.getNodeByParam("deptId", vm.role.deptId);
-                if(node != null){
-                    dept_ztree.selectNode(node);
-
-                    vm.role.deptName = node.name;
-                }
-            })
-        },
-        deptTree: function(){
-            layer.open({
-                type: 1,
-                offset: '50px',
-                skin: 'layui-layer-molv',
-                title: "选择部门",
-                area: ['300px', '450px'],
-                shade: 0,
-                shadeClose: false,
-                content: jQuery("#deptLayer"),
-                btn: ['确定', '取消'],
-                btn1: function (index) {
-                    var node = dept_ztree.getSelectedNodes();
-                    //选择上级部门
-                    vm.role.deptId = node[0].deptId;
-                    vm.role.deptName = node[0].name;
-
-                    layer.close(index);
-                }
-            });
-        },
-        reload: function () {
+        // getDataTree: function(roleId) {
+        //     //加载菜单树
+        //     $.get("../sys/dept/list", function(r){
+        //         data_ztree = $.fn.zTree.init($("#dataTree"), data_setting, r);
+        //         //展开所有节点
+        //         data_ztree.expandAll(true);
+        //     });
+        // },
+        // getDept: function(){
+        //     //加载部门树
+        //     $.get("../sys/dept/list", function(r){
+        //         dept_ztree = $.fn.zTree.init($("#deptTree"), dept_setting, r);
+        //         var node = dept_ztree.getNodeByParam("deptId", vm.role.deptId);
+        //         if(node != null){
+        //             dept_ztree.selectNode(node);
+        //
+        //             vm.role.deptName = node.name;
+        //         }
+        //     })
+        // },
+        // deptTree: function(){
+        //     layer.open({
+        //         type: 1,
+        //         offset: '50px',
+        //         skin: 'layui-layer-molv',
+        //         title: "选择部门",
+        //         area: ['300px', '450px'],
+        //         shade: 0,
+        //         shadeClose: false,
+        //         content: jQuery("#deptLayer"),
+        //         btn: ['确定', '取消'],
+        //         btn1: function (index) {
+        //             var node = dept_ztree.getSelectedNodes();
+        //             //选择上级部门
+        //             vm.role.deptId = node[0].deptId;
+        //             vm.role.deptName = node[0].name;
+        //
+        //             layer.close(index);
+        //         }
+        //     });
+        // },
+        reload: function (event) {
             vm.showList = true;
-            var page = $("#jqGrid").jqGrid('getGridParam','page');
-            $("#jqGrid").jqGrid('setGridParam',{
-                postData:{'roleName': vm.q.roleName},
-                page:page
-            }).trigger("reloadGrid");
+            $("#table").bootstrapTable('refresh');
         }
     }
 });
