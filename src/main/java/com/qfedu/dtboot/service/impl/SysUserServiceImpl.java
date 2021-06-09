@@ -52,7 +52,14 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public boolean updatePassword(Long userId, String password, String newPassword) {
-        return false;
+        SysUser sysUser = sysUserMapper.selectById(userId);
+        if (!sysUser.getPassword().equals(password))
+            return false;
+        sysUser.setPassword(newPassword);
+        int t = sysUserMapper.updateByPrimaryKeySelective(sysUser);
+        if (t == 0)
+            return false;
+        return true;
     }
 
     @Override
