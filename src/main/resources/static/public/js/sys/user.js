@@ -1,47 +1,3 @@
-// $(function () {
-//     $("#jqGrid").jqGrid({
-//         url: 'http://localhost:8090/sys/user/list',
-//         datatype: "json",
-//         colModel: [
-// 			{ label: '用户ID', name: 'userId', index: "user_id", width: 45, key: true },
-// 			{ label: '用户名', name: 'username', width: 75 },
-//             { label: '所属部门', name: 'deptName', sortable: false, width: 75 },
-// 			{ label: '邮箱', name: 'email', width: 90 },
-// 			{ label: '手机号', name: 'mobile', width: 100 },
-// 			{ label: '状态', name: 'status', width: 60, formatter: function(value, options, row){
-// 				return value === 0 ?
-// 					'<span class="label label-danger">禁用</span>' :
-// 					'<span class="label label-success">正常</span>';
-// 			}},
-// 			{ label: '创建时间', name: 'createTime', index: "create_time", width: 85}
-//         ],
-// 		viewrecords: true,
-//         height: 385,
-//         rowNum: 10,
-// 		rowList : [10,30,50],
-//         rownumbers: true,
-//         rownumWidth: 25,
-//         autowidth:true,
-//         multiselect: true,
-//         pager: "#jqGridPager",
-//         jsonReader : {
-//             root: "page.list",
-//             page: "page.currPage",
-//             total: "page.totalPage",
-//             records: "page.totalCount"
-//         },
-//         prmNames : {
-//             page:"page",
-//             rows:"limit",
-//             order: "order"
-//         },
-//         gridComplete:function(){
-//         	//隐藏grid底部滚动条
-//         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" });
-//         }
-//     });
-// });
-
 $(function(){
     var option = {
         url: '../sys/user/list',
@@ -69,20 +25,6 @@ $(function(){
     $('#table').bootstrapTable(option);
 });
 
-
-var setting = {
-    data: {
-        simpleData: {
-            enable: true,
-            // idKey: "deptId",
-            pIdKey: "parentId",
-            rootPId: -1
-        },
-        key: {
-            url:"nourl"
-        }
-    }
-};
 var ztree;
 
 var vm = new Vue({
@@ -104,9 +46,6 @@ var vm = new Vue({
         }
     },
     methods: {
-        // query: function () {
-        //     vm.reload();
-        // },
         add: function(){
             vm.showList = false;
             vm.title = "新增";
@@ -115,21 +54,7 @@ var vm = new Vue({
 
             //获取角色信息
             this.getRoleList();
-
-            // vm.getDept();
         },
-        // getDept: function(){
-        //     //加载部门树
-        //     $.get("http://localhost:8090/sys/dept/list", function(r){
-        //         ztree = $.fn.zTree.init($("#deptTree"), setting, r);
-        //         var node = ztree.getNodeByParam("deptId", vm.user.deptId);
-        //         if(node != null){
-        //             ztree.selectNode(node);
-        //
-        //             vm.user.deptName = node.name;
-        //         }
-        //     })
-        // },
         update: function () {
             var userId = getSelectedRow();
             console.log("userId", userId);
@@ -152,32 +77,7 @@ var vm = new Vue({
 
             window.location.href="../sys/permissions/index/"+userId;
         },
-        // del: function () {
-        //     var userIds = getSelectedRows();
-        //     console.log("userIds:", userIds)
-        //     if(userIds == null){
-        //         return ;
-        //     }
-        //
-        //     confirm('确定要删除选中的记录？', function(){
-        //         $.ajax({
-        //             type: "POST",
-        //             url: "../sys/user/delete",
-        //             contentType: "application/json",
-        //             data: JSON.stringify(userIds),
-        //             success: function(r){
-        //                 if(r.code === 0){
-        //                     layer.alert('删除成功', function(index){
-        //                         layer.close(index);
-        //                         vm.reload();
-        //                     });
-        //                 }else{
-        //                     layer.alert(r.msg);
-        //                 }
-        //             }
-        //         });
-        //     });
-        // },
+
         del: function(){
             var userIds = getSelectedRows();
             if(userIds == null){
@@ -236,8 +136,6 @@ var vm = new Vue({
                 console.log("userInfo", userId.userId);
                 vm.user = r.user;
                 vm.user.password = null;
-
-                // vm.getDept();
             });
         },
         getRoleList: function(){
@@ -245,27 +143,6 @@ var vm = new Vue({
                 vm.roleList = r.list;
             });
         },
-        // deptTree: function(){
-        //     layer.open({
-        //         type: 1,
-        //         offset: '50px',
-        //         skin: 'layui-layer-molv',
-        //         title: "选择部门",
-        //         area: ['300px', '450px'],
-        //         shade: 0,
-        //         shadeClose: false,
-        //         content: jQuery("#deptLayer"),
-        //         btn: ['确定', '取消'],
-        //         btn1: function (index) {
-        //             var node = ztree.getSelectedNodes();
-        //             //选择上级部门
-        //             vm.user.deptId = node[0].deptId;
-        //             vm.user.deptName = node[0].name;
-        //
-        //             layer.close(index);
-        //         }
-        //     });
-        // },
         reload: function (event) {
             vm.showList = true;
             $("#table").bootstrapTable('refresh');

@@ -86,7 +86,8 @@ var vm = new Vue({
                     success : function(r) {
                         if(r.code === 0){
                             layer.alert('删除成功');
-                            $('#table').bootstrapTable('refresh');
+                            // $('#table').bootstrapTable('refresh');
+                            parent.location.reload();
                         }else{
                             layer.alert(r.msg);
                         }
@@ -128,7 +129,8 @@ var vm = new Vue({
                     if(r.code === 0){
                         layer.alert('操作成功', function(index){
                             layer.close(index);
-                            vm.reload();
+                            // vm.reload();
+                            parent.location.reload();
                         });
                     }else{
                         layer.alert(r.msg);
