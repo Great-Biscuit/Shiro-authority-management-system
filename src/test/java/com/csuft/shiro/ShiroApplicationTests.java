@@ -10,17 +10,17 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class DtbootApplicationTests {
+public class ShiroApplicationTests {
 
-	@Autowired
-	private SysMenuMapper sysMenuMapper;
+    @Autowired
+    private SysMenuMapper sysMenuMapper;
 
-	@Test
-	public void contextLoads() {
+    @Test
+    public void contextLoads() {
 
-	}
+    }
 
-	@Test
+    @Test
 	public void testSelectByPrimaryKey() {
 
 		SysMenu sysMenu = sysMenuMapper.selectByPrimaryKey(1L);
