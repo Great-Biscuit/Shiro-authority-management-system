@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.qfedu.dtboot.dao.SysUserMapper">
-    <resultMap id="BaseResultMap" type="com.qfedu.dtboot.entity.SysUser">
+<mapper namespace="com.csuft.shiro.dao.SysUserMapper">
+    <resultMap id="BaseResultMap" type="com.csuft.shiro.entity.SysUser">
         <id column="user_id" property="userId" jdbcType="BIGINT"/>
         <result column="username" property="username" jdbcType="VARCHAR"/>
         <result column="password" property="password" jdbcType="VARCHAR"/>
@@ -26,7 +26,7 @@
         from sys_user
         where user_id = #{userId,jdbcType=BIGINT}
     </delete>
-    <insert id="insert" parameterType="com.qfedu.dtboot.entity.SysUser">
+    <insert id="insert" parameterType="com.csuft.shiro.entity.SysUser">
         insert into sys_user (user_id, username, password,
                               email, mobile, status,
                               create_user_id, create_time)
@@ -34,7 +34,7 @@
                 #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT},
                 #{createUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP})
     </insert>
-    <insert id="insertSelective" parameterType="com.qfedu.dtboot.entity.SysUser">
+    <insert id="insertSelective" parameterType="com.csuft.shiro.entity.SysUser">
         insert into sys_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="userId != null">
@@ -89,7 +89,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.dtboot.entity.SysUser">
+    <update id="updateByPrimaryKeySelective" parameterType="com.csuft.shiro.entity.SysUser">
         update sys_user
         <set>
             <if test="username != null">
@@ -116,7 +116,7 @@
         </set>
         where user_id = #{userId,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.qfedu.dtboot.entity.SysUser">
+    <update id="updateByPrimaryKey" parameterType="com.csuft.shiro.entity.SysUser">
         update sys_user
         set username       = #{username,jdbcType=VARCHAR},
             password       = #{password,jdbcType=VARCHAR},
@@ -129,7 +129,7 @@
     </update>
 
 
-    <select id="queryByUserName" resultType="com.qfedu.dtboot.entity.SysUser">
+    <select id="queryByUserName" resultType="com.csuft.shiro.entity.SysUser">
         select *
         from sys_user
         where username = #{username}
@@ -150,7 +150,7 @@
         where ur.user_id = #{userId}
     </select>
 
-    <select id="queryList" resultType="com.qfedu.dtboot.entity.SysUser">
+    <select id="queryList" resultType="com.csuft.shiro.entity.SysUser">
         select
         user_id as userId, username, password, email, mobile, status, create_user_id as createUserId, create_time as
         createTime
@@ -181,7 +181,7 @@
         </foreach>
     </delete>
 
-    <select id="selectById" resultType="com.qfedu.dtboot.entity.SysUser">
+    <select id="selectById" resultType="com.csuft.shiro.entity.SysUser">
         select *
         from sys_user
         where user_id = #{userId}

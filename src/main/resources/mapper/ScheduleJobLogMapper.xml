@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.qfedu.dtboot.dao.ScheduleJobLogMapper" >
-  <resultMap id="BaseResultMap" type="com.qfedu.dtboot.entity.ScheduleJobLog" >
-    <id column="log_id" property="logId" jdbcType="BIGINT" />
-    <result column="job_id" property="jobId" jdbcType="BIGINT" />
-    <result column="bean_name" property="beanName" jdbcType="VARCHAR" />
-    <result column="method_name" property="methodName" jdbcType="VARCHAR" />
-    <result column="params" property="params" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="TINYINT" />
-    <result column="error" property="error" jdbcType="VARCHAR" />
-    <result column="times" property="times" jdbcType="BIGINT" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  <resultMap id="BaseResultMap" type="com.csuft.shiro.entity.ScheduleJobLog">
+      <id column="log_id" property="logId" jdbcType="BIGINT"/>
+      <result column="job_id" property="jobId" jdbcType="BIGINT"/>
+      <result column="bean_name" property="beanName" jdbcType="VARCHAR"/>
+      <result column="method_name" property="methodName" jdbcType="VARCHAR"/>
+      <result column="params" property="params" jdbcType="VARCHAR"/>
+      <result column="status" property="status" jdbcType="TINYINT"/>
+      <result column="error" property="error" jdbcType="VARCHAR"/>
+      <result column="times" property="times" jdbcType="BIGINT"/>
+      <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
   </resultMap>
   <sql id="Base_Column_List" >
     log_id, job_id, bean_name, method_name, params, status, error, times, create_time
@@ -25,27 +25,25 @@
     delete from schedule_job_log
     where log_id = #{logId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.qfedu.dtboot.entity.ScheduleJobLog" >
-    insert into schedule_job_log (log_id, job_id, bean_name, 
-      method_name, params, status, 
-      error, times, create_time
-      )
-    values (#{logId,jdbcType=BIGINT}, #{jobId,jdbcType=BIGINT}, #{beanName,jdbcType=VARCHAR}, 
-      #{methodName,jdbcType=VARCHAR}, #{params,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
-      #{error,jdbcType=VARCHAR}, #{times,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.qfedu.dtboot.entity.ScheduleJobLog" >
-    insert into schedule_job_log
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="logId != null" >
-        log_id,
-      </if>
-      <if test="jobId != null" >
-        job_id,
-      </if>
-      <if test="beanName != null" >
-        bean_name,
+    <insert id="insert" parameterType="com.csuft.shiro.entity.ScheduleJobLog">
+        insert into schedule_job_log (log_id, job_id, bean_name,
+                                      method_name, params, status,
+                                      error, times, create_time)
+        values (#{logId,jdbcType=BIGINT}, #{jobId,jdbcType=BIGINT}, #{beanName,jdbcType=VARCHAR},
+                #{methodName,jdbcType=VARCHAR}, #{params,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT},
+                #{error,jdbcType=VARCHAR}, #{times,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.csuft.shiro.entity.ScheduleJobLog">
+        insert into schedule_job_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="logId != null">
+                log_id,
+            </if>
+            <if test="jobId != null">
+                job_id,
+            </if>
+            <if test="beanName != null">
+                bean_name,
       </if>
       <if test="methodName != null" >
         method_name,
@@ -96,17 +94,17 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.dtboot.entity.ScheduleJobLog" >
-    update schedule_job_log
-    <set >
-      <if test="jobId != null" >
-        job_id = #{jobId,jdbcType=BIGINT},
-      </if>
-      <if test="beanName != null" >
-        bean_name = #{beanName,jdbcType=VARCHAR},
-      </if>
-      <if test="methodName != null" >
-        method_name = #{methodName,jdbcType=VARCHAR},
+    <update id="updateByPrimaryKeySelective" parameterType="com.csuft.shiro.entity.ScheduleJobLog">
+        update schedule_job_log
+        <set>
+            <if test="jobId != null">
+                job_id = #{jobId,jdbcType=BIGINT},
+            </if>
+            <if test="beanName != null">
+                bean_name = #{beanName,jdbcType=VARCHAR},
+            </if>
+            <if test="methodName != null">
+                method_name = #{methodName,jdbcType=VARCHAR},
       </if>
       <if test="params != null" >
         params = #{params,jdbcType=VARCHAR},
@@ -126,16 +124,16 @@
     </set>
     where log_id = #{logId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.qfedu.dtboot.entity.ScheduleJobLog" >
-    update schedule_job_log
-    set job_id = #{jobId,jdbcType=BIGINT},
-      bean_name = #{beanName,jdbcType=VARCHAR},
-      method_name = #{methodName,jdbcType=VARCHAR},
-      params = #{params,jdbcType=VARCHAR},
-      status = #{status,jdbcType=TINYINT},
-      error = #{error,jdbcType=VARCHAR},
-      times = #{times,jdbcType=BIGINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
-    where log_id = #{logId,jdbcType=BIGINT}
+    <update id="updateByPrimaryKey" parameterType="com.csuft.shiro.entity.ScheduleJobLog">
+        update schedule_job_log
+        set job_id      = #{jobId,jdbcType=BIGINT},
+            bean_name   = #{beanName,jdbcType=VARCHAR},
+            method_name = #{methodName,jdbcType=VARCHAR},
+            params      = #{params,jdbcType=VARCHAR},
+            status      = #{status,jdbcType=TINYINT},
+            error       = #{error,jdbcType=VARCHAR},
+            times       = #{times,jdbcType=BIGINT},
+            create_time = #{createTime,jdbcType=TIMESTAMP}
+        where log_id = #{logId,jdbcType=BIGINT}
   </update>
 </mapper>

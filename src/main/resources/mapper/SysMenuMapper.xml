@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.qfedu.dtboot.dao.SysMenuMapper">
-    <resultMap id="BaseResultMap" type="com.qfedu.dtboot.entity.SysMenu">
+<mapper namespace="com.csuft.shiro.dao.SysMenuMapper">
+    <resultMap id="BaseResultMap" type="com.csuft.shiro.entity.SysMenu">
         <id column="menu_id" property="menuId" jdbcType="BIGINT"/>
         <result column="parent_id" property="parentId" jdbcType="BIGINT"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
@@ -26,16 +26,16 @@
         where menu_id = #{menuId,jdbcType=BIGINT}
     </delete>
 
-    <insert id="insert" parameterType="com.qfedu.dtboot.entity.SysMenu">
+    <insert id="insert" parameterType="com.csuft.shiro.entity.SysMenu">
         insert into sys_menu (menu_id, parent_id, name,
-        url, perms, type, icon,
-        order_num)
+                              url, perms, type, icon,
+                              order_num)
         values (#{menuId,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
-        #{url,jdbcType=VARCHAR}, #{perms,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR},
-        #{orderNum,jdbcType=INTEGER})
+                #{url,jdbcType=VARCHAR}, #{perms,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR},
+                #{orderNum,jdbcType=INTEGER})
     </insert>
 
-    <insert id="insertSelective" parameterType="com.qfedu.dtboot.entity.SysMenu">
+    <insert id="insertSelective" parameterType="com.csuft.shiro.entity.SysMenu">
         insert into sys_menu
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="menuId != null">
@@ -91,7 +91,7 @@
         </trim>
     </insert>
 
-    <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.dtboot.entity.SysMenu">
+    <update id="updateByPrimaryKeySelective" parameterType="com.csuft.shiro.entity.SysMenu">
         update sys_menu
         <set>
             <if test="parentId != null">
@@ -119,25 +119,25 @@
         where menu_id = #{menuId,jdbcType=BIGINT}
     </update>
 
-    <update id="updateByPrimaryKey" parameterType="com.qfedu.dtboot.entity.SysMenu">
+    <update id="updateByPrimaryKey" parameterType="com.csuft.shiro.entity.SysMenu">
         update sys_menu
         set parent_id = #{parentId,jdbcType=BIGINT},
-        name = #{name,jdbcType=VARCHAR},
-        url = #{url,jdbcType=VARCHAR},
-        perms = #{perms,jdbcType=VARCHAR},
-        type = #{type,jdbcType=INTEGER},
-        icon = #{icon,jdbcType=VARCHAR},
-        order_num = #{orderNum,jdbcType=INTEGER}
+            name      = #{name,jdbcType=VARCHAR},
+            url       = #{url,jdbcType=VARCHAR},
+            perms     = #{perms,jdbcType=VARCHAR},
+            type      = #{type,jdbcType=INTEGER},
+            icon      = #{icon,jdbcType=VARCHAR},
+            order_num = #{orderNum,jdbcType=INTEGER}
         where menu_id = #{menuId,jdbcType=BIGINT}
     </update>
 
-    <select id="queryListAll" resultType="com.qfedu.dtboot.entity.SysMenu">
-    select m.*,(select p.name from sys_menu p where p.menu_id = m.parent_id) as parentName
-    from sys_menu m
-    order by m.order_num asc
-  </select>
+    <select id="queryListAll" resultType="com.csuft.shiro.entity.SysMenu">
+        select m.*, (select p.name from sys_menu p where p.menu_id = m.parent_id) as parentName
+        from sys_menu m
+        order by m.order_num asc
+    </select>
 
-    <select id="queryList" resultType="com.qfedu.dtboot.entity.SysMenu">
+    <select id="queryList" resultType="com.csuft.shiro.entity.SysMenu">
         select
         menu_id as menuId, name, url, perms, type, icon, order_num as orderNum,
         (select p.name from sys_menu p where p.menu_id = m.parent_id) as parentName
@@ -167,12 +167,18 @@
         </foreach>
     </delete>
 
-    <select id="queryNotButtonList" resultType="com.qfedu.dtboot.entity.SysMenu">
-        select * from sys_menu where type != 2 order by order_num asc
+    <select id="queryNotButtonList" resultType="com.csuft.shiro.entity.SysMenu">
+        select *
+        from sys_menu
+        where type != 2
+        order by order_num asc
     </select>
 
-    <select id="queryListParentId" resultType="com.qfedu.dtboot.entity.SysMenu">
-        select * from sys_menu where parent_id = #{parentId} order by order_num asc
+    <select id="queryListParentId" resultType="com.csuft.shiro.entity.SysMenu">
+        select *
+        from sys_menu
+        where parent_id = #{parentId}
+        order by order_num asc
     </select>
 
 </mapper>
