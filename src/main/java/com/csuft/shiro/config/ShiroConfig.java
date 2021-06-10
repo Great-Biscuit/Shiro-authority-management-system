@@ -26,9 +26,6 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
-    //@Autowired
-    //private SysConfigService sysConfigService;
-
     /**
      * session管理器
      * @return
@@ -96,31 +93,9 @@ public class ShiroConfig {
         filterMap.put("/sys/login", "anon");
         filterMap.put("/captcha.jpg", "anon");
 
-        //具有admin角色的用户才能访问 /sys/menu/del
-        //filterMap.put("/sys/menu/del", "roles[admin]");
-        //具有sys:menu:update权限的用户才能访问 /sys/menu/update
-
-        //资源权限验证
-       /* filterMap.put("/sys/menu/list", "perms[sys:menu:list]");
-        filterMap.put("/sys/menu/del", "perms[sys:menu:delete]");
-        filterMap.put("/sys/menu/save", "perms[sys:menu:save]");
-        filterMap.put("/sys/menu/update", "perms[sys:menu:update]");
-        filterMap.put("/sys/menu/select", "perms[sys:menu:select]");
-        filterMap.put("/sys/menu/info/**", "perms[sys:menu:info]");*/
-
-        /*System.out.println(sysConfigService);
-        List<SysConfig> sysConfigList = sysConfigService.queryByKeyPrefix("SHIRO_FILTER_CONFIG_%");
-        LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
-        for (SysConfig sysConfig : sysConfigList) {
-            String value = sysConfig.getValue();
-            String[] array = value.split("=");
-            filterMap.put(array[0], array[1]);
-        }*/
-
         //记住我
         filterMap.put("/**", "user");
 
-        //Map<String, String> filterMap = new FilterChainDefinitionMapBuilder().buildFilter();
         shiroFilter.setFilterChainDefinitionMap(filterMap);
 
         return shiroFilter;
