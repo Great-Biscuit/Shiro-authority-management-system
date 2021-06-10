@@ -1,0 +1,72 @@
+.skin-blue .main-header .logo {
+    background: #001529;
+}
+.skin-blue .main-header .logo:hover {
+    background: #001529;
+}
+.skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {
+    background: #001529;
+}
+.skin-blue .sidebar-menu>li>.treeview-menu {
+    background: #0c2135;
+}
+.sidebar-menu .treeview-menu>li {
+    padding: 10px 0;
+}
+.skin-blue .main-header .navbar {
+    background: #fff;
+}
+.skin-blue .main-header .navbar .nav>li>a {
+    color: #333;
+}
+.skin-blue .main-header .navbar .nav>li>a:hover {
+    background: #fff;
+    color: #0c2135;
+}
+
+.skin-blue .main-header .navbar .nav>li>a:focus {
+    background: #fff;
+    color: #0c2135;
+}
+
+.skin-blue .sidebar-menu>li:hover>a, .skin-blue .sidebar-menu>li.active>a {
+    background: #001529;
+}
+
+.skin-blue .sidebar-menu>li.header {
+    background: #001529;
+}
+
+.skin-blue .main-header .navbar .sidebar-toggle {
+    color: #333;
+}
+.skin-blue .main-header .navbar .sidebar-toggle:hover {
+    color: #0c2135;
+    background: #fff;
+}
+.skin-blue .main-header .navbar .sidebar-toggle:hover {
+    color: #0c2135;
+    background: #fff;
+}
+.layui-layer-molv .layui-layer-title {
+    background: #001529 !important;
+}
+.layui-layer-molv .layui-layer-btn a {
+    background: #0c2135 !important;
+}
+.layui-layer-molv .layui-layer-title:hover {
+    background: #001529;
+}
+.layui-layer-molv .layui-layer-btn a:hover {
+    background: #0c2135;
+}
+.layui-layer-molv .layui-layer-btn .layui-layer-btn1 {
+    background: #fff !important;
+    border: 1px solid #3F3F3F;
+    color: #333;
+}
+.layui-layer-molv .layui-layer-btn .layui-layer-btn1:hover {
+    background: #fff;
+    border: 1px solid #3F3F3F;
+    color: #333;
+}

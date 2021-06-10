@@ -40,11 +40,6 @@ var vm = new Vue({
         navTitle:"控制台"
 	},
 	methods: {
-		menuListChange: function () {
-			myFrame.window.changeMenu = function () {
-				this.getMenuList();
-			}
-		},
 		getMenuList: function (event) {
 			/*$.getJSON("json/menu_user.json?_"+$.now(), function(r){*/
 			$.getJSON("sys/menu/user?_" + $.now(), function (r) {
