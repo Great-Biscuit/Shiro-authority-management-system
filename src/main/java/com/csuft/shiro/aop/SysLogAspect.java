@@ -21,6 +21,7 @@ import java.util.Date;
 
 /**
  * 系统日志：切面处理类
+ * 给自定义注解提供支持
  */
 @Aspect
 @Component

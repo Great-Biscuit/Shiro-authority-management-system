@@ -47,7 +47,7 @@ public class SysUserController extends AbstractController {
     @RequiresPermissions(value = {"sys:user:list"})
     public DataGridResult list(@RequestParam Map<String, Object> params) {
         //查询列表数据
-        Query query = new Query(params);//进一步处理参数
+        Query query = new Query(params);
         return sysUserService.getPageList(query);
     }
 

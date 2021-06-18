@@ -15,6 +15,7 @@ import java.util.List;
 
 
 /**
+ * Druid连接池配置类
  * 自动读取 application.properties文件中以spring.datasource开头的信息
  * 将DataSource对象的实现类变为了DruidDataSource对象。
  */

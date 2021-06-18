@@ -1,8 +1,5 @@
 package com.csuft.shiro.utils;
 
-/**
- * Created by helen on 2018/3/3
- */
 public class Constant {
 
     /** 超级管理员ID */

@@ -13,9 +13,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
-/**
- * Created by helen on 2018/3/6
- */
 @Component
 public class UserRealm extends AuthorizingRealm {
 

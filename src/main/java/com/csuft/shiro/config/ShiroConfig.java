@@ -20,8 +20,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Shiro配置
- *
+ * Shiro配置类
  */
 @Configuration
 public class ShiroConfig {
@@ -44,12 +43,6 @@ public class ShiroConfig {
 
     @Bean(name = "securityManager")
     public SecurityManager securityManager(UserRealm userRealm, SessionManager sessionManager){
-
-        //密码加密规则
-        /*HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
-        credentialsMatcher.setHashAlgorithmName("md5");
-        credentialsMatcher.setHashIterations(1024);
-        userRealm.setCredentialsMatcher(credentialsMatcher);*/
 
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(userRealm);
@@ -111,8 +104,8 @@ public class ShiroConfig {
     }
 
     /**
-     *开启Shiro的注解,需借助SpringAOP扫描使用Shiro注解的类,并在必要时进行安全逻辑验证
-     *配置以下两个bean即可实现此功能
+     * 开启Shiro的注解,需借助SpringAOP扫描使用Shiro注解的类,并在必要时进行安全逻辑验证
+     * 配置以下两个bean即可实现此功能
      * @return
      */
     @Bean(name = "defaultAdvisorAutoProxyCreator")
