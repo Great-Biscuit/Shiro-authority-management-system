@@ -1,3 +1,4 @@
+// 自执行函数，获取角色信息，填充表格，挂载到 table 上
 $(function(){
     var option = {
         url: '../sys/menu/list',
@@ -7,18 +8,7 @@ $(function(){
         search: true,
         toolbar: '#toolbar',
         striped : true,     //设置为true会有隔行变色效果
-        //idField: 'menuId',
         columns: [
-            {
-                field: 'menuId',
-                title: '序号',
-                width: 40,
-                formatter: function(value, row, index) {
-                    var pageSize = $('#table').bootstrapTable('getOptions').pageSize;
-                    var pageNumber = $('#table').bootstrapTable('getOptions').pageNumber;
-                    return pageSize * (pageNumber - 1) + index + 1;
-                }
-            },
             {checkbox:true},
             { title: '菜单ID', field: 'menuId'},
             {field:'name', title:'菜单名称', formatter: function(value,row){
@@ -55,6 +45,7 @@ $(function(){
 });
 var ztree;
 
+// 创建 menu 组件实例
 var vm = new Vue({
 	el:'#dtapp',
     data:{
@@ -63,47 +54,14 @@ var vm = new Vue({
         menu:{}
     },
     methods:{
-        del: function(){
-            var rows = getSelectedRows();
-            if(rows == null){
-                return ;
-            }
-            var id = 'menuId';
-            //提示确认框
-            layer.confirm('您确定要删除所选数据吗？', {
-                btn: ['确定', '取消'] //可以无限个按钮
-            }, function(index, layero){
-                var ids = new Array();
-                //遍历所有选择的行数据，取每条数据对应的ID
-                $.each(rows, function(i, row) {
-                    ids[i] = row[id];
-                });
-
-                $.ajax({
-                    type: "POST",
-                    url: "menu/del",
-                    data: JSON.stringify(ids),
-                    success : function(r) {
-                        if(r.code === 0){
-                            layer.alert('删除成功');
-                            // $('#table').bootstrapTable('refresh');
-                            parent.location.reload();
-                        }else{
-                            layer.alert(r.msg);
-                        }
-                    },
-                    error : function() {
-                        layer.alert('服务器没有返回数据，可能服务器忙，请重试');
-                    }
-                });
-            });
-        },
+        // 当点击增加按钮时执行，显示增加表单
         add: function(){
             vm.showList = false;
             vm.title = "新增";
             vm.menu = {parentName:null,parentId:0,type:1,orderNum:0};
             vm.getMenu();
         },
+        // 当点击修改按钮时执行，显示编辑表单
         update: function (event) {
             var id = 'menuId';
             var menuId = getSelectedRow()[id];
@@ -119,6 +77,42 @@ var vm = new Vue({
                 vm.getMenu();
             });
         },
+        // 删除单条或多条菜单信息
+        del: function(){
+            var rows = getSelectedRows();
+            if(rows == null){
+                return ;
+            }
+            var id = 'menuId';
+            //提示确认框
+            layer.confirm('您确定要删除所选数据吗？', {
+                btn: ['确定', '取消']
+            }, function(index, layero){
+                var ids = new Array();
+                //遍历所有选择的行数据，取每条数据对应的ID
+                $.each(rows, function(i, row) {
+                    ids[i] = row[id];
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "menu/del",
+                    data: JSON.stringify(ids),
+                    success : function(r) {
+                        if(r.code === 0){
+                            layer.alert('删除成功');
+                            parent.location.reload();
+                        }else{
+                            layer.alert(r.msg);
+                        }
+                    },
+                    error : function() {
+                        layer.alert('服务器没有返回数据，可能服务器忙，请重试');
+                    }
+                });
+            });
+        },
+        // 当新增和编辑信息填写完点击确认后触发，更新数据
         saveOrUpdate: function (event) {
             var url = vm.menu.menuId == null ? "../sys/menu/save" : "../sys/menu/update";
             $.ajax({
@@ -129,7 +123,6 @@ var vm = new Vue({
                     if(r.code === 0){
                         layer.alert('操作成功', function(index){
                             layer.close(index);
-                            // vm.reload();
                             parent.location.reload();
                         });
                     }else{
@@ -138,10 +131,7 @@ var vm = new Vue({
                 }
             });
         },
-        reload: function (event) {
-            vm.showList = true;
-            $("#table").bootstrapTable('refresh');
-        },
+        // 弹出菜单树的 layer
         menuTree: function(){
             layer.open({
                 type: 1,
@@ -163,8 +153,8 @@ var vm = new Vue({
                 }
             });
         },
+        // 获取菜单信息
         getMenu: function(menuId){
-
             var setting = {
                 data: {
                     simpleData: {
@@ -179,18 +169,23 @@ var vm = new Vue({
                 }
             };
 
-            //加载菜单树
+            // 加载菜单树
             $.get("../sys/menu/select", function(r){
-                //设置ztree的数据
+                // 设置 ztree 的数据
                 ztree = $.fn.zTree.init($("#menuTree"), setting, r.menuList);
 
-                //编辑（update）时，打开tree，自动高亮选择的条目
+                // 编辑时，打开tree，自动高亮选择的条目
                 var node = ztree.getNodeByParam("menuId", vm.menu.parentId);
-                //选中tree菜单中的对应节点
+                // 选中 tree 菜单中的对应节点
                 ztree.selectNode(node);
-                //编辑（update）时，根据当前的选中节点，为编辑表单的“上级菜单”回填值
+                // 编辑时，根据当前的选中节点，为编辑表单的“上级菜单”回填值
                 vm.menu.parentName = node.name;
             });
+        },
+        // 重新加载表格
+        reload: function (event) {
+            vm.showList = true;
+            $("#table").bootstrapTable('refresh');
         }
     }
 });

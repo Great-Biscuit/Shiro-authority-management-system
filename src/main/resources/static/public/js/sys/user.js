@@ -1,3 +1,4 @@
+// 自执行函数，获取用户信息，填充表格，挂载到 table 上
 $(function(){
     var option = {
         url: '../sys/user/list',
@@ -7,7 +8,6 @@ $(function(){
         toolbar: '#toolbar',
         search: true,
         striped : true,     //设置为true会有隔行变色效果
-        //idField: 'menuId',
         columns: [
             {checkbox:true},
             { title: '用户ID', field: 'userId', width: 45 },
@@ -25,8 +25,7 @@ $(function(){
     $('#table').bootstrapTable(option);
 });
 
-var ztree;
-
+// 创建 user 组件实例
 var vm = new Vue({
     el:'#rrapp',
     data:{
@@ -46,38 +45,29 @@ var vm = new Vue({
         }
     },
     methods: {
+        // 当点击增加按钮时执行，显示增加表单
         add: function(){
             vm.showList = false;
             vm.title = "新增";
             vm.roleList = {};
             vm.user = {status:1, roleIdList:[]};
-
-            //获取角色信息
+            // 获取角色信息
             this.getRoleList();
         },
+        // 当点击修改按钮时执行，显示编辑表单
         update: function () {
             var userId = getSelectedRow();
-            console.log("userId", userId);
             if(userId == null){
                 return ;
             }
-
             vm.showList = false;
             vm.title = "修改";
 
             vm.getUser(userId);
-            //获取角色信息
+            // 获取角色信息
             this.getRoleList();
         },
-        permissions: function () {
-            var userId = getSelectedRow();
-            if(userId == null){
-                return ;
-            }
-
-            window.location.href="../sys/permissions/index/"+userId;
-        },
-
+        // 删除单条或多条用户信息
         del: function(){
             var userIds = getSelectedRows();
             if(userIds == null){
@@ -86,14 +76,13 @@ var vm = new Vue({
             var id = 'userId';
             //提示确认框
             layer.confirm('您确定要删除所选数据吗？', {
-                btn: ['确定', '取消'] //可以无限个按钮
+                btn: ['确定', '取消']
             }, function(index, layero){
                 var ids = new Array();
                 //遍历所有选择的行数据，取每条数据对应的ID
                 $.each(userIds, function(i, row) {
                     ids[i] = row[id];
                 });
-
                 $.ajax({
                     type: "POST",
                     url: "../sys/user/delete",
@@ -112,6 +101,7 @@ var vm = new Vue({
                 });
             });
         },
+        // 当新增和编辑信息填写完点击确认后触发，更新数据
         saveOrUpdate: function () {
             var url = vm.user.userId == null ? "../sys/user/save" : "../sys/user/update";
             $.ajax({
@@ -131,6 +121,7 @@ var vm = new Vue({
                 }
             });
         },
+        // 获取用户信息
         getUser: function(userId){
             $.get("../sys/user/info/"+userId.userId, function(r){
                 console.log("userInfo", userId.userId);
@@ -138,11 +129,13 @@ var vm = new Vue({
                 vm.user.password = null;
             });
         },
+        // 获取角色信息
         getRoleList: function(){
             $.get("../sys/role/select", function(r){
                 vm.roleList = r.list;
             });
         },
+        // 重新加载表格
         reload: function (event) {
             vm.showList = true;
             $("#table").bootstrapTable('refresh');

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>管理员列表</title>
+	<title>用户列表</title>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -14,6 +14,7 @@
 </head>
 <body>
 <div id="rrapp" v-cloak>
+	<!--增删改按钮区域，通过 Shiro 判断用户是否有权限，有则展示对应按钮-->
 	<div v-show="showList">
 		<div id="toolbar">
 			<button v-if="hasPermission('sys:user:save')" class="btn btn-success" type="button" @click="add">
@@ -26,9 +27,10 @@
 				<i class="fa fa-remove"></i><span class="bold"> 删除</span>
 			</button>
 		</div>
+		<!--用户列表，通过在 js 中获取数据挂载到该元素上面-->
 		<table id="table"></table>
 	</div>
-
+	<!--新增和修改用户时显示该表单-->
 	<div v-show="!showList" class="panel panel-default">
 		<div class="panel-heading">{{title}}</div>
 		<form class="form-horizontal">
@@ -82,10 +84,6 @@
 	</div>
 </div>
 
-<!-- 选择部门 -->
-<div id="deptLayer" style="display: none;padding:10px;">
-	<ul id="deptTree" class="ztree"></ul>
-</div>
 <script src="../public/libs/jquery.min.js"></script>
 <script src="../public/plugins/layer/layer.js"></script>
 <script src="../public/libs/bootstrap.min.js"></script>

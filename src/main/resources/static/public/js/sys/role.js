@@ -1,3 +1,4 @@
+// 自执行函数，获取角色信息，填充表格，挂载到 table 上
 $(function(){
     var option = {
         url: '../sys/role/list',
@@ -7,7 +8,6 @@ $(function(){
         toolbar: '#toolbar',
         search: true,
         striped : true,     //设置为true会有隔行变色效果
-        //idField: 'menuId',
         columns: [
             {checkbox:true},
             { title: '角色ID', field: 'roleId',width: 45 },
@@ -39,7 +39,7 @@ var menu_setting = {
     }
 };
 
-
+// 创建 role 组件实例
 var vm = new Vue({
     el:'#rrapp',
     data:{
@@ -47,31 +47,31 @@ var vm = new Vue({
             roleName: null
         },
         showList: true,
-        title:null,
+        title: null,
         role:{
             menuIdList:[]
         }
     },
     methods: {
-        query: function () {
-            vm.reload();
-        },
+        // 当点击增加按钮时执行，显示增加表单
         add: function(){
             vm.showList = false;
             vm.title = "新增";
+            // 获取菜单信息
             vm.getMenuTree(null);
         },
+        // 当点击修改按钮时执行，显示编辑表单
         update: function () {
             var roleId = getSelectedRow();
             if(roleId == null){
                 return ;
             }
-
             vm.showList = false;
             vm.title = "修改";
-            // vm.getDataTree();
+            // 获取菜单信息
             vm.getMenuTree(roleId);
         },
+        // 删除单条或多条角色信息
         del: function(){
             var roleIds = getSelectedRows();
             if(roleIds == null){
@@ -80,7 +80,7 @@ var vm = new Vue({
             var id = 'roleId';
             //提示确认框
             layer.confirm('您确定要删除所选数据吗？', {
-                btn: ['确定', '取消'] //可以无限个按钮
+                btn: ['确定', '取消']
             }, function(index, layero){
                 var ids = new Array();
                 //遍历所有选择的行数据，取每条数据对应的ID
@@ -106,6 +106,7 @@ var vm = new Vue({
                 });
             });
         },
+        // 获取角色信息
         getRole: function(roleId){
             roleId = roleId.roleId;
             $.get("../sys/role/info/"+roleId, function(r){
@@ -119,6 +120,7 @@ var vm = new Vue({
                 }
             });
         },
+        // 当新增和编辑信息填写完点击确认后触发，更新数据
         saveOrUpdate: function () {
             //获取选择的菜单
             var nodes = menu_ztree.getCheckedNodes(true);
@@ -149,6 +151,7 @@ var vm = new Vue({
                 }
             });
         },
+        // 获取菜单信息
         getMenuTree: function(roleId) {
             //加载菜单树
             $.get("../sys/menu/listall", function(r){
@@ -161,6 +164,7 @@ var vm = new Vue({
                 }
             });
         },
+        // 重新加载表格
         reload: function (event) {
             vm.showList = true;
             $("#table").bootstrapTable('refresh');

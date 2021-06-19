@@ -1,4 +1,4 @@
-//生成菜单
+//生成菜单栏
 var menuItem = Vue.extend({
 	name: 'menu-item',
 	props:{item:{}},
@@ -37,22 +37,23 @@ var vm = new Vue({
 		main:"sys/main.html",
 		password:'',
 		newPassword:'',
-        navTitle:"控制台"
+        navTitle:"项目信息"
 	},
 	methods: {
+		// 获取菜单列表
 		getMenuList: function (event) {
-			/*$.getJSON("json/menu_user.json?_"+$.now(), function(r){*/
 			$.getJSON("sys/menu/user?_" + $.now(), function (r) {
 				vm.menuList = r.menuList;
 				window.permissions = r.permissions;
 			});
 		},
+		// 获取用户信息
 		getUser: function () {
-			/*$.getJSON("json/user_info.json?_"+$.now(), function(r){*/
 			$.getJSON("sys/user/info?_" + $.now(), function (r) {
 				vm.user = r.user;
 			});
 		},
+		//修改密码
 		updatePassword: function(){
 			layer.open({
 				type: 1,
@@ -84,6 +85,7 @@ var vm = new Vue({
 			});
 		}
 	},
+	// 当组件实例化后就获取菜单项和用户信息
 	created: function(){
 		this.getMenuList();
 		this.getUser();
@@ -97,7 +99,7 @@ var vm = new Vue({
 });
 
 
-
+// 拿到 menuList，加入到路由表中
 function routerList(router, menuList){
 	for(var key in menuList){
 		var menu = menuList[key];
