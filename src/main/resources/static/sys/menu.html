@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>菜单管理</title>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-<link rel="stylesheet" href="../public/css/bootstrap.min.css">
-<link rel="stylesheet" href="../public/css/font-awesome.min.css">
-<link rel="stylesheet" href="../public/plugins/bootstrap-table/bootstrap-table.min.css">
-<link rel="stylesheet" href="../public/plugins/ztree/css/metroStyle/metroStyle.css">
-<link rel="stylesheet" href="../public/css/main.css">
-
+    <title>菜单管理</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../public/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../public/plugins/bootstrap-table/bootstrap-table.min.css">
+    <link rel="stylesheet" href="../public/plugins/ztree/css/metroStyle/metroStyle.css">
+    <link rel="stylesheet" href="../public/css/main.css">
 </head>
 <body>
 <div id="dtapp" v-cloak>
-
+    <!--增删改按钮区域，通过 Shiro 判断用户是否有权限，有则展示对应按钮-->
     <div v-show="showList">
         <div id="toolbar">
             <button v-if="hasPermission('sys:menu:save')"  class="btn btn-success " type="button" @click="add">
@@ -27,10 +26,10 @@
                 <i class="fa fa-remove"></i>&nbsp;&nbsp;<span class="bold">删除</span>
             </button>
         </div>
-
+        <!--菜单列表，通过在 js 中获取数据挂载到该元素上面-->
         <table id="table"></table>
     </div>
-
+    <!--新增和修改菜单时显示该表单-->
     <div v-show="!showList" class="panel panel-default">
         <div class="panel-heading">{{title}}</div>
         <form class="form-horizontal">
@@ -58,6 +57,7 @@
                     <input type="text" class="form-control" style="cursor:pointer;" v-model="menu.parentName" @click="menuTree" readonly="readonly" placeholder="一级菜单"/>
                 </div>
             </div>
+            <!--menu.type ==1 为当选择类型为菜单时显示，menu.type == 2 为当选择类型为目录时显示-->
             <div v-if="menu.type == 1" class="form-group">
                 <div class="col-sm-2 control-label">菜单URL</div>
                 <div class="col-sm-10">
