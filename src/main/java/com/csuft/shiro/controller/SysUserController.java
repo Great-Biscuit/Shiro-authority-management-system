@@ -30,7 +30,7 @@ public class SysUserController extends AbstractController {
     /**
      * 获取登录的用户信息
      *
-     * @return
+     * @return 登录的用户信息
      */
     @GetMapping("/info")
     public R info() {
@@ -38,10 +38,10 @@ public class SysUserController extends AbstractController {
     }
 
     /**
-     * 用户列表
+     * 分页、模糊查询用户列表
      *
-     * @param params
-     * @return
+     * @param params 参数
+     * @return 查询结果
      */
     @RequestMapping("/list")
     @RequiresPermissions(value = {"sys:user:list"})
@@ -54,9 +54,9 @@ public class SysUserController extends AbstractController {
     /**
      * 修改密码
      *
-     * @param password
-     * @param newPassword
-     * @return
+     * @param password    原密码
+     * @param newPassword 新密码
+     * @return 操作结果
      */
     @MyLog("修改密码")
     @RequestMapping("/password")
@@ -78,8 +78,8 @@ public class SysUserController extends AbstractController {
     /**
      * 查询用户信息
      *
-     * @param userId
-     * @return
+     * @param userId 用户ID
+     * @return 用户信息
      */
     @RequestMapping("/info/{userId}")
     @RequiresPermissions(value = {"sys:user:info"})
@@ -95,8 +95,8 @@ public class SysUserController extends AbstractController {
     /**
      * 保存用户
      *
-     * @param user
-     * @return
+     * @param user 用户信息
+     * @return 操作结果
      */
     @MyLog("保存用户")
     @RequestMapping("/save")
@@ -113,8 +113,8 @@ public class SysUserController extends AbstractController {
     /**
      * 修改用户
      *
-     * @param user
-     * @return
+     * @param user 用户信息
+     * @return 操作结果
      */
     @MyLog("修改用户")
     @RequestMapping("/update")

@@ -10,71 +10,74 @@ import java.util.List;
 public interface SysUserMapper {
 
     /**
-     * 查询出列表
+     * 查分页模糊询出用户列表
      *
-     * @param query
-     * @return
+     * @param query 分页模糊参数
+     * @return 用户列表
      */
     List<SysUser> queryList(Query query);
 
     /**
-     * 查出总数
+     * 查出分页模糊查询总数
      *
-     * @param query
-     * @return
+     * @param query 分页模糊查询参数
+     * @return 数量
      */
     int queryTotal(Query query);
 
     /**
      * 按ID删除用户
      *
-     * @param userId
-     * @return
+     * @param userId 用户ID
+     * @return 操作结果
      */
     int deleteByPrimaryKey(Long userId);
 
     /**
      * 插入用户
      *
-     * @param record
-     * @return
+     * @param record 用户
+     * @return 操作结果
      */
     int insert(SysUser record);
 
     /**
-     * 插入（用户信息不全）
-     * @param record
-     * @return
+     * 插入用户（用户信息不全）
+     *
+     * @param record 用户
+     * @return 操作结果
      */
     int insertSelective(SysUser record);
 
     /**
      * 按ID查询用户
-     * @param userId
-     * @return
+     *
+     * @param userId 用户ID
+     * @return 用户
      */
     SysUser selectByPrimaryKey(Long userId);
 
     /**
      * 更新用户信息（用户信息不全）
-     * @param record
-     * @return
+     *
+     * @param record 用户
+     * @return 操作结果
      */
     int updateByPrimaryKeySelective(SysUser record);
 
     /**
      * 更新用户信息
      *
-     * @param record
-     * @return
+     * @param record 用户
+     * @return 操作结果
      */
     int updateByPrimaryKey(SysUser record);
 
     /**
      * 根据用户名，查询系统用户
      *
-     * @param username
-     * @return
+     * @param username 用户名
+     * @return 用户
      */
     SysUser queryByUserName(String username);
 
@@ -87,22 +90,25 @@ public interface SysUserMapper {
 
     /**
      * 查询用户的所有菜单ID
+     *
+     * @param userId 用户ID
+     * @return 菜单列表
      */
     List<Long> queryAllMenuId(Long userId);
 
     /**
-     * 批量删除
+     * 批量删除用户
      *
-     * @param userIds
-     * @return
+     * @param userIds 用户ID列表
+     * @return 操作结果
      */
     int deleteBatch(Long[] userIds);
 
     /**
      * 根据ID查询用户
      *
-     * @param userId
-     * @return
+     * @param userId 用户ID
+     * @return 用户
      */
     SysUser selectById(Long userId);
 }

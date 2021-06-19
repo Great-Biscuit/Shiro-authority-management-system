@@ -27,10 +27,11 @@ public class ShiroConfig {
 
     /**
      * session管理器
+     *
      * @return
      */
     @Bean(name = "sessionManager")
-    public SessionManager sessionManager(){
+    public SessionManager sessionManager() {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         //设置session过期时间为1小时(单位：毫秒)，默认为30分钟
         sessionManager.setGlobalSessionTimeout(60 * 60 * 1000);
@@ -42,7 +43,7 @@ public class ShiroConfig {
     }
 
     @Bean(name = "securityManager")
-    public SecurityManager securityManager(UserRealm userRealm, SessionManager sessionManager){
+    public SecurityManager securityManager(UserRealm userRealm, SessionManager sessionManager) {
 
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(userRealm);
@@ -65,6 +66,7 @@ public class ShiroConfig {
 
     /**
      * 过滤器
+     *
      * @param securityManager
      * @return
      */
@@ -96,6 +98,7 @@ public class ShiroConfig {
 
     /**
      * 保证实现了Shiro内部lifecycle函数的bean执行
+     *
      * @return
      */
     @Bean(name = "lifecycleBeanPostProcessor")
@@ -106,6 +109,7 @@ public class ShiroConfig {
     /**
      * 开启Shiro的注解,需借助SpringAOP扫描使用Shiro注解的类,并在必要时进行安全逻辑验证
      * 配置以下两个bean即可实现此功能
+     *
      * @return
      */
     @Bean(name = "defaultAdvisorAutoProxyCreator")

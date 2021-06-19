@@ -25,21 +25,44 @@ public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private SysUserRoleService sysUserRoleService;
 
+    /**
+     * 根据用户名，查询系统用户
+     *
+     * @param username 用户名
+     * @return
+     */
     @Override
     public SysUser queryByUserName(String username) {
         return sysUserMapper.queryByUserName(username);
     }
 
+    /**
+     * 查询用户的所有权限
+     *
+     * @param userId 用户ID
+     */
     @Override
     public List<String> queryAllPerms(Long userId) {
         return sysUserMapper.queryAllPerms(userId);
     }
 
+    /**
+     * 查询用户的所有菜单ID
+     *
+     * @param userId 用户ID
+     * @return 菜单ID列表
+     */
     @Override
     public List<Long> queryAllMenuId(Long userId) {
         return sysUserMapper.queryAllMenuId(userId);
     }
 
+    /**
+     * 分页模糊查询用户信息
+     *
+     * @param query 分页模糊查询参数
+     * @return 分页模糊查询结果
+     */
     @Override
     public DataGridResult getPageList(Query query) {
         List<SysUser> rows = sysUserMapper.queryList(query);
@@ -50,6 +73,14 @@ public class SysUserServiceImpl implements SysUserService {
         return dataGridResult;
     }
 
+    /**
+     * 更新密码
+     *
+     * @param userId      用户ID
+     * @param password    旧密码
+     * @param newPassword 新密码
+     * @return 更新结果
+     */
     @Override
     public boolean updatePassword(Long userId, String password, String newPassword) {
         SysUser sysUser = sysUserMapper.selectById(userId);
@@ -62,16 +93,33 @@ public class SysUserServiceImpl implements SysUserService {
         return true;
     }
 
+    /**
+     * 根据ID查询用户
+     *
+     * @param userId 用户ID
+     * @return 用户
+     */
     @Override
     public SysUser getById(Long userId) {
         return sysUserMapper.selectById(userId);
     }
 
+    /**
+     * 根据ID列表删除用户
+     *
+     * @param asList 用户ID列表
+     */
     @Override
     public void deleteByIds(Long[] asList) {
         sysUserMapper.deleteBatch(asList);
     }
 
+    /**
+     * 保存用户
+     *
+     * @param user 用户
+     * @return 操作结果
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public boolean saveUser(SysUser user) {
@@ -88,6 +136,12 @@ public class SysUserServiceImpl implements SysUserService {
         return true;
     }
 
+    /**
+     * 更新用户
+     *
+     * @param user 用户
+     * @return 操作结果
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public boolean updateUser(SysUser user) {

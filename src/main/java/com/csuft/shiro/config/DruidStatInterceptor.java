@@ -7,6 +7,6 @@ import org.springframework.context.annotation.ImportResource;
  * 配置Spring监控
  */
 @Configuration
-@ImportResource(locations={"classpath:application-bean.xml"})
+@ImportResource(locations = {"classpath:application-bean.xml"})
 public class DruidStatInterceptor {
 }

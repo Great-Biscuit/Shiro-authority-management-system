@@ -36,7 +36,7 @@ public class DruidConfig {
     }
 
     @Bean
-    public WallFilter wallFilter(){
+    public WallFilter wallFilter() {
         WallFilter wallFilter = new WallFilter();
 
         //允许执行多条SQL

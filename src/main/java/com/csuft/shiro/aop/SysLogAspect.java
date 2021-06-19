@@ -33,23 +33,23 @@ public class SysLogAspect {
     //定义@Pointcut
     //@annotation：表示注解出现的位置切入代码
     @Pointcut("@annotation(com.csuft.shiro.annotation.MyLog)")
-    public void logPointCut(){
+    public void logPointCut() {
 
     }
 
     @AfterReturning("logPointCut()")
-    public void saveSysLog(JoinPoint joinPoint){
+    public void saveSysLog(JoinPoint joinPoint) {
 
         //保存日志
         SysLog sysLog = new SysLog();
 
         //从切面织入点处通过反射机制获取织入点处的方法
-        MethodSignature methodSignature = (MethodSignature)joinPoint.getSignature();
+        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         Method method = methodSignature.getMethod();
 
         //操作
         MyLog mylog = method.getAnnotation(MyLog.class);
-        if(mylog != null){
+        if (mylog != null) {
             String value = mylog.value();
             sysLog.setOperation(value);
         }

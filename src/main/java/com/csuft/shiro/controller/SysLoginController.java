@@ -23,22 +23,26 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * 登录相关
+ * 登录
  */
 @Controller
 public class SysLoginController {
 
+    /**
+     * Kaptcha验证码生成器
+     */
     @Autowired
     private Producer producer;
 
     /**
      * 生成验证码
-     * @param response
+     *
+     * @param response 响应体
      * @throws ServletException
      * @throws IOException
      */
     @GetMapping("/captcha.jpg")
-    public void captcha(HttpServletResponse response)throws ServletException, IOException {
+    public void captcha(HttpServletResponse response) throws ServletException, IOException {
         response.setHeader("Cache-Control", "no-store, no-cache");
         response.setContentType("image/jpeg");
         //生成文字验证码
@@ -56,10 +60,14 @@ public class SysLoginController {
 
     /**
      * 登录
+     *
+     * @param map 参数
+     * @return 操作结果
+     * @throws IOException IO异常
      */
     @ResponseBody
     @PostMapping("/sys/login")
-    public R login(@RequestBody Map<String, String> map)throws IOException {
+    public R login(@RequestBody Map<String, String> map) throws IOException {
 
         String username = map.get("username");
         String password = map.get("password");
@@ -67,33 +75,33 @@ public class SysLoginController {
         String rememberMe = map.get("rememberMe");
 
         String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
-        if(!captcha.equalsIgnoreCase(kaptcha)){
+        if (!captcha.equalsIgnoreCase(kaptcha)) {
             return R.error("验证码不正确");
         }
 
 
         Boolean remember = false;
-        if(rememberMe != null) {
+        if (rememberMe != null) {
             remember = true;
         }
 
-        try{
+        try {
             Subject subject = ShiroUtils.getSubject();
 
             //加密用户输入的密码
             password = new Md5Hash(password, username, 1024).toHex();
-            System.out.println("password："+ password);
+            System.out.println("password：" + password);
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
             token.setRememberMe(remember);
             subject.login(token);
 
-        }catch (UnknownAccountException e) {
+        } catch (UnknownAccountException e) {
             return R.error(e.getMessage());
-        }catch (IncorrectCredentialsException e) {
+        } catch (IncorrectCredentialsException e) {
             return R.error(e.getMessage());
-        }catch (LockedAccountException e) {
+        } catch (LockedAccountException e) {
             return R.error(e.getMessage());
-        }catch (AuthenticationException e) {
+        } catch (AuthenticationException e) {
             return R.error("账户验证失败");
         }
 
@@ -101,7 +109,9 @@ public class SysLoginController {
     }
 
     /**
-     * 退出
+     * 登出
+     *
+     * @return 重定向
      */
     @GetMapping("logout")
     public String logout() {

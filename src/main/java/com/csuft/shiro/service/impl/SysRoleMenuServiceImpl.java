@@ -25,6 +25,12 @@ public class SysRoleMenuServiceImpl implements SysRoleMenuService {
         return sysRoleMenuMapper.queryMenuIdList(roleId);
     }
 
+    /**
+     * 保存或修改角色菜单关系
+     *
+     * @param roleId     角色ID
+     * @param menuIdList 菜单列表
+     */
     @Override
     public void saveOrUpdate(Long roleId, List<Long> menuIdList) {
         //先删除
@@ -41,11 +47,21 @@ public class SysRoleMenuServiceImpl implements SysRoleMenuService {
         }
     }
 
+    /**
+     * 根据角色ID列表删除角色菜单关系
+     *
+     * @param roleIds 角色ID列表
+     */
     @Override
     public void deleteByRoleIds(Long[] roleIds) {
         sysRoleMenuMapper.deleteByRoleIds(roleIds);
     }
 
+    /**
+     * 根据菜单ID列表删除角色菜单关系
+     *
+     * @param menuIds 菜单ID列表
+     */
     @Override
     public void deleteByMenuIds(Long[] menuIds) {
         sysRoleMenuMapper.deleteByMenuIds(menuIds);

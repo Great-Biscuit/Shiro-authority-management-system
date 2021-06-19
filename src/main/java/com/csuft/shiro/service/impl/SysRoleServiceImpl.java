@@ -23,6 +23,12 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Autowired
     private SysRoleMenuService sysRoleMenuService;
 
+    /**
+     * 分页模糊查询角色
+     *
+     * @param query 分页模糊查询参数
+     * @return 分页模糊查询结果
+     */
     @Override
     public DataGridResult getPageList(Query query) {
 
@@ -34,21 +40,44 @@ public class SysRoleServiceImpl implements SysRoleService {
         return dataGridResult;
     }
 
+    /**
+     * 根据ID列表删除角色
+     *
+     * @param roleIds 角色ID列表
+     */
     @Override
     public void deleteBatch(Long[] roleIds) {
         sysRoleMapper.deleteBatch(roleIds);
     }
 
+    /**
+     * 根据ID查询角色
+     *
+     * @param roleId 角色ID
+     * @return 角色
+     */
     @Override
     public SysRole getById(Long roleId) {
         return sysRoleMapper.selectByPrimaryKey(roleId);
     }
 
+
+    /**
+     * 查询所有角色
+     *
+     * @return
+     */
     @Override
     public List<SysRole> list() {
         return sysRoleMapper.selectAll();
     }
 
+    /**
+     * 保存角色
+     *
+     * @param role 角色信息
+     * @return 操作结果
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public boolean saveRole(SysRole role) {
@@ -61,6 +90,12 @@ public class SysRoleServiceImpl implements SysRoleService {
         return true;
     }
 
+    /**
+     * 更新角色
+     *
+     * @param role 角色信息
+     * @return 操作结果
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public boolean update(SysRole role) {

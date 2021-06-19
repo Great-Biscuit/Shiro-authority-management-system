@@ -4,12 +4,24 @@ import java.io.Serializable;
 
 public class SysUserRole implements Serializable {
 
+    /**
+     * 用户角色联系ID
+     */
     private Long id;
 
+    /**
+     * 用户ID
+     */
     private Long userId;
 
+    /**
+     * 角色ID
+     */
     private Long roleId;
 
+    /**
+     * 标识符
+     */
     private static final long serialVersionUID = 1L;
 
     public Long getId() {

@@ -24,7 +24,12 @@ public class SysRoleController extends AbstractController {
     @Autowired
     private SysRoleMenuService sysRoleMenuService;
 
-
+    /**
+     * 分页、模糊查询
+     *
+     * @param params 分页及模糊查询参数
+     * @return 查询结果
+     */
     @RequestMapping("/list")
     @RequiresPermissions("sys:role:list")
     public DataGridResult list(@RequestParam Map<String, Object> params) {
@@ -33,7 +38,11 @@ public class SysRoleController extends AbstractController {
         return sysRoleService.getPageList(query);
     }
 
-
+    /**
+     * 查询角色列表
+     *
+     * @return 角色列表
+     */
     @RequestMapping("/select")
     @RequiresPermissions("sys:role:select")
     public R select() {
@@ -41,7 +50,12 @@ public class SysRoleController extends AbstractController {
         return R.ok().put("list", list);
     }
 
-
+    /**
+     * 查询角色对应的菜单列表
+     *
+     * @param roleId 角色ID
+     * @return 菜单列表
+     */
     @RequestMapping("/info/{roleId}")
     @RequiresPermissions("sys:role:info")
     public R info(@PathVariable("roleId") Long roleId) {
@@ -54,6 +68,12 @@ public class SysRoleController extends AbstractController {
         return R.ok().put("role", role);
     }
 
+    /**
+     * 保存角色
+     *
+     * @param role 角色信息
+     * @return 操作结果
+     */
     @MyLog("保存角色")
     @RequestMapping("/save")
     @RequiresPermissions("sys:role:save")
@@ -66,6 +86,12 @@ public class SysRoleController extends AbstractController {
         return R.ok();
     }
 
+    /**
+     * 修改角色
+     *
+     * @param role 角色信息
+     * @return 操作结果
+     */
     @MyLog("修改角色")
     @RequestMapping("/update")
     @RequiresPermissions("sys:role:update")
@@ -77,6 +103,12 @@ public class SysRoleController extends AbstractController {
         return R.ok();
     }
 
+    /**
+     * 删除ID列表对应的角色
+     *
+     * @param roleIds ID列表
+     * @return 操作结果
+     */
     @MyLog("删除角色")
     @RequestMapping("/delete")
     @RequiresPermissions("sys:role:delete")

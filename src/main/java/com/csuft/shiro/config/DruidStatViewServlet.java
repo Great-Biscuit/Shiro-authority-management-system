@@ -9,7 +9,7 @@ import javax.servlet.annotation.WebServlet;
  * 配置druid页面访问参数
  */
 @WebServlet(urlPatterns = "/druid/*",
-        initParams= {
+        initParams = {
                 @WebInitParam(name = "allow", value = "127.0.0.1"),
                 @WebInitParam(name = "loginUsername", value = "admin"),// 用户名
                 @WebInitParam(name = "loginPassword", value = "admin"),// 密码

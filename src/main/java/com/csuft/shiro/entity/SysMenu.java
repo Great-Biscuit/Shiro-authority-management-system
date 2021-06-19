@@ -5,22 +5,49 @@ import java.util.List;
 
 public class SysMenu implements Serializable {
 
+    /**
+     * 菜单ID
+     */
     private Long menuId;
 
+    /**
+     * 父菜单ID
+     */
     private Long parentId;
 
+    /**
+     * 名称
+     */
     private String name;
 
+    /**
+     * 路径
+     */
     private String url;
 
+    /**
+     * 授权
+     */
     private String perms;
 
+    /**
+     * 类型
+     */
     private Integer type;
 
+    /**
+     * 图标
+     */
     private String icon;
 
+    /**
+     * 排序号
+     */
     private Integer orderNum;
 
+    /**
+     * 标识符
+     */
     private static final long serialVersionUID = 1L;
 
     public Long getMenuId() {

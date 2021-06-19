@@ -6,14 +6,29 @@ import java.util.List;
 
 public class SysUser implements Serializable {
 
+    /**
+     * 用户ID
+     */
     private Long userId;
 
+    /**
+     * 用户名
+     */
     private String username;
 
+    /**
+     * 密码
+     */
     private String password;
 
+    /**
+     * 邮箱
+     */
     private String email;
 
+    /**
+     * 手机号码
+     */
     private String mobile;
 
     /**
@@ -31,14 +46,20 @@ public class SysUser implements Serializable {
      */
     private String createName;
 
+    /**
+     * 创建时间
+     */
     private Date createTime;
+
+    /**
+     * 标识符
+     */
+    private static final long serialVersionUID = 1L;
 
     /**
      * 角色ID列表
      */
     private List<Long> roleIdList;
-
-    private static final long serialVersionUID = 1L;
 
     public Long getUserId() {
         return userId;

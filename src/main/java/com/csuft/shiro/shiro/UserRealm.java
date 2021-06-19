@@ -21,10 +21,12 @@ public class UserRealm extends AuthorizingRealm {
 
     @Autowired
     private SysMenuService sysMenuService;
+
     /**
      * 认证
+     *
      * @param token
-     * @return
+     * @return 认证信息
      * @throws AuthenticationException
      */
     @Override
@@ -32,12 +34,12 @@ public class UserRealm extends AuthorizingRealm {
         System.out.println("认证!");
 
         //用户输入
-        String usernameInput = (String)token.getPrincipal();
-        String passwordInput = new String((char[])token.getCredentials());
+        String usernameInput = (String) token.getPrincipal();
+        String passwordInput = new String((char[]) token.getCredentials());
 
         //查询用户是否存在
         SysUser user = sysUserService.queryByUserName(usernameInput);
-        if(user == null){
+        if (user == null) {
             throw new UnknownAccountException("账号或密码不正确");
         }
 
@@ -46,12 +48,12 @@ public class UserRealm extends AuthorizingRealm {
         String password = user.getPassword();
 
         //判断密码是否正确
-        if(!passwordInput.equals(password)){
+        if (!passwordInput.equals(password)) {
             throw new IncorrectCredentialsException("账号或密码不正确");
         }
 
         //账号是否被锁定
-        if(user.getStatus() == 0){
+        if (user.getStatus() == 0) {
             throw new LockedAccountException("账号已被锁定，请联系管理员");
         }
 
@@ -64,6 +66,7 @@ public class UserRealm extends AuthorizingRealm {
 
     /**
      * 授权
+     *
      * @param principals
      * @return
      */
@@ -72,7 +75,7 @@ public class UserRealm extends AuthorizingRealm {
 
         System.out.println("授权");
 
-        SysUser user = (SysUser)principals.getPrimaryPrincipal();
+        SysUser user = (SysUser) principals.getPrimaryPrincipal();
         Long userId = user.getUserId();
 
         //用户权限列表

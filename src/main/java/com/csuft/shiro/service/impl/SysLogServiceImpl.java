@@ -12,6 +12,10 @@ public class SysLogServiceImpl implements SysLogService {
     @Autowired
     private SysLogMapper sysLogMapper;
 
+    /**
+     * 保存日志
+     * @param sysLog 日志信息
+     */
     @Override
     public void save(SysLog sysLog) {
         sysLogMapper.insertSelective(sysLog);

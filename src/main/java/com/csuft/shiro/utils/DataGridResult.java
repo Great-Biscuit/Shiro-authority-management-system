@@ -4,7 +4,13 @@ import java.util.List;
 
 public class DataGridResult {
 
+	/**
+	 * 总数
+	 */
 	private Integer total;
+	/**
+	 * 行数
+	 */
 	private Object rows;
 	public DataGridResult(List<?> rows, Integer total) {
 		this.total = total;

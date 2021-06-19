@@ -6,8 +6,14 @@ import java.util.List;
 
 public class SysRole implements Serializable {
 
+    /**
+     * 角色ID
+     */
     private Long roleId;
 
+    /**
+     * 角色名称
+     */
     private String roleName;
 
     /**
@@ -30,8 +36,14 @@ public class SysRole implements Serializable {
      */
     private List<Long> menuIdList;
 
+    /**
+     * 创建时间
+     */
     private Date createTime;
 
+    /**
+     * 标识符
+     */
     private static final long serialVersionUID = 1L;
 
     public Long getRoleId() {

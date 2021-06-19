@@ -25,6 +25,12 @@ public class SysUserRoleServiceImpl implements SysUserRoleService {
         return sysUserRoleMapper.queryRoleIdList(userId);
     }
 
+    /**
+     * 保存修改用户角色联系
+     *
+     * @param userId     用户ID
+     * @param roleIdList 角色ID列表
+     */
     @Override
     public void saveOrUpdate(Long userId, List<Long> roleIdList) {
         //先删除
@@ -41,11 +47,21 @@ public class SysUserRoleServiceImpl implements SysUserRoleService {
         }
     }
 
+    /**
+     * 根据角色ID列表删除用户角色联系
+     *
+     * @param roleIds
+     */
     @Override
     public void deleteByRoleIds(Long[] roleIds) {
         sysUserRoleMapper.deleteByRoleIds(roleIds);
     }
 
+    /**
+     * 根据用户ID列表删除用户角色联系
+     *
+     * @param UserIds 用户ID列表
+     */
     @Override
     public void deleteByUserIds(Long[] UserIds) {
         sysUserRoleMapper.deleteByUserIds(UserIds);
